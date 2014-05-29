@@ -1,0 +1,174 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>outfitSearch.html</title>
+
+<script type="text/javascript" language="Javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script src="MemContainer.js"></script>
+<script src="outfitFeed.js"></script>
+<script src="playerFeed.js"></script>
+<script src="playerIdContainer.js"></script>
+<script src="feedInstance.js"></script>
+<script src="playerFeedInstance.js"></script>
+<script src="cookieHandler.js"></script>
+
+<script>
+var feed;
+var pContainer;
+
+$(document).ready(function(){
+	//alert("Add to <div> or something and make multiple views");
+	addHistoryButtons();
+	
+	$('#init_merc_feed').click( function() {
+		feed = addFeed('merc');
+		$('#outfit_feed').val( 'merc' );
+	});
+	
+	$('#add').click( function() {
+		feed = addFeed( $('#outfit_feed').val());
+		
+	});
+	
+	$('#player_add').click( function() {
+		feed = addPlayerFeed( $('#player_feed').val());
+		
+	});
+	
+	$('#init_ratch_feed').click( function() {
+		feed = addPlayerFeed( 'ratch' );
+		
+	});
+	
+	$('#button2').click( function() {
+		feed = addFeed( 'merc');
+		feed = addFeed( 'oo');
+		feed = addFeed( '666');
+		feed = addFeed( 'exe');		
+	});
+	
+	$('#button3').click( function() {
+		printCookies();	
+	});
+	
+	$('#button4').click( function() {
+		setCookie("username",'ratch',30);
+	});
+	
+	$('#button5').click( function() {
+			
+	});
+	
+	// press enter on outfit tag 
+	$('#outfit_feed').bind( "enterKey", function(e) {
+		feed = addFeed( $('#outfit_feed').val());
+	});
+	
+	$('#outfit_feed').keyup( function(e) {
+		if( e.keyCode == 13 )	{
+			$(this).trigger("enterKey");
+		}
+	});
+	
+});
+
+/*
+function getFeed(outfit_tag) {
+
+	return new OutfitFeed({
+		tag: outfit_tag,
+		feed_id: 'testp',
+		con_id: 'con_status',
+		totalM_id: 'member_count',
+		kdRatio_id: 'kd_ratio'
+	});
+}
+*/
+
+function addFeed(outfit_tag) {
+	checkTagCookie(outfit_tag);
+	
+	return new Feed({
+		tag: outfit_tag,
+		wall_id: 'feed_wall'
+	});
+}
+
+function addPlayerFeed(player_name) {
+	//checkTagCookie(outfit_tag);
+	
+	return new playerFeedWindow({
+		pname: player_name,
+		wall_id: 'feed_wall'
+	});
+}
+</script>
+
+</head>
+
+<body>
+
+<div>
+Outfit Tag:<input id='outfit_feed' type="text" style="width:4em" maxlength="4">
+<button id="add">Add</button>
+<button id="init_merc_feed">MERC</button>
+<button id="button2">Add 4</button>
+<button id="button3">button3</button>
+<button id="button4">button4 set cookie</button>
+<button id="button5">button5 check cookie</button><br />
+Player:<input id='player_feed' type="text" style="width:8em">
+<button id="player_add">Add</button>
+<button id="init_ratch_feed">ratch</button>*add player history*<br />
+<div id="history_list">History:</div>
+<hr>
+</div><!--
+<div id='first_feed' style="background-color:#EDEDED; ">
+<div>Status:<input type="text" id="con_status" style="width:7em" readonly><br /></div>
+<div>Online:<input type="text" id="member_count" style="width:7em" readonly><br /></div>
+<div>K/D:<input type="text" id="kd_ratio" style="width:5em" readonly><br /></div>
+</div>-->
+
+<div id='feed_wall' style="background-color:#EDEDED; ">
+
+</div>
+
+<div id='video_wall' style="background-color:#EDEDED; ">
+ <!--<iframe frameborder="0" scrolling="no" src="http://twitch.tv/hondadude7/chat?popout=" height="500" width="250"></iframe>-->
+</div>
+
+
+<!--
+<div id='video_wall2' style="background-color:#EDEDED; ">
+<object type="application/x-shockwave-flash" height="170"  width="250" id="live_embed_player_flash" data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=hondadude7" bgcolor="#000000"><param name="allowFullScreen" value="true" /><param name="allowScriptAccess" value="always" /><param name="allowNetworking" value="all" /><param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" /><param name="flashvars" value="hostname=www.twitch.tv&channel=hondadude7&auto_play=true&start_volume=25" /></object>
+
+<object type="application/x-shockwave-flash" height="170" width="250" id="live_embed_player_flash" data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=ghstmarauder" bgcolor="#000000"><param name="allowFullScreen" value="false" /><param name="allowScriptAccess" value="always" /><param name="allowNetworking" value="all" /><param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" /><param name="flashvars" value="hostname=www.twitch.tv&channel=ghstmarauder&auto_play=true&start_volume=25" /></object>
+
+<object type="application/x-shockwave-flash" height="170" width="250" id="live_embed_player_flash" data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=gerpwns" bgcolor="#000000"><param name="allowFullScreen" value="true" /><param name="allowScriptAccess" value="always" /><param name="allowNetworking" value="all" /><param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" /><param name="flashvars" value="hostname=www.twitch.tv&channel=gerpwns&auto_play=true&start_volume=25" /></object>
+
+<object type="application/x-shockwave-flash" height="170" width="250" id="live_embed_player_flash" data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=roughtr" bgcolor="#000000"><param name="allowFullScreen" value="true" /><param name="allowScriptAccess" value="always" /><param name="allowNetworking" value="all" /><param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" /><param name="flashvars" value="hostname=www.twitch.tv&channel=roughtr&auto_play=true&start_volume=25" /></object>
+-->
+
+
+<!--<a href="http://www.twitch.tv/hondadude7" style="padding:2px 0px 4px; display:block; width:345px; font-weight:normal; font-size:10px;text-decoration:underline; text-align:center;">Watch live video from HondaDude7 on www.twitch.tv</a>-->
+</div>
+
+<!--<button id="button4">button4</button>
+<button id="button5">button5</button>
+ -->
+ 
+
+
+ 
+ <!---->
+<p id="testp"></p>
+
+
+
+
+
+</body>
+</html>
+
+
