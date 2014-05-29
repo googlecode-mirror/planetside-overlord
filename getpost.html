@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>getpost.html</title>
+
+	<script type="text/javascript" language="Javascript" 
+			src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js">
+			
+			
+	  
+	  
+	</script>
+</head>
+
+	<body>
+
+		<script>
+			var ratch_id = '5428010618043506641';
+			var str = 'http://census.soe.com/s:rch/get/ps2:v2/character/?character_id=' + ratch_id + '&c:show=name';
+			
+			$.ajax({ 
+			   type: "GET",
+			   dataType: "jsonp",
+			   url: str,
+			   success: function(data){        
+				 console.log("RCH data:", data);  
+			   }
+			});
+			
+			/*
+			$.getJSON('http://census.soe.com/s:rch/get/ps2:v2/character/?character_id=' + ratch_id + '&c:show=name', function(data) {
+				console.log("RCH data:", data);         
+			});
+			
+			$.post( 'http://census.soe.com/s:rch/get/ps2:v2/character/?character_id=' + ratch_id + '&c:show=name', function( data ) {
+				$( ".result" ).html( data );
+				$("#message").html( 'DATA:'+data+'<br />' + $("#message").html());
+				console.log("RCH data:", data);
+			});
+			*/
+		</script>
+	
+		<p id="message"></p>
+
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
