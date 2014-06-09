@@ -13,22 +13,40 @@
 <script src="feedInstance.js"></script>
 <script src="playerFeedInstance.js"></script>
 <script src="cookieHandler.js"></script>
+<script src="playerHistory.js"></script>
 
 <script>
 var feed;
 var pContainer;
+var playerHistory;
+var tagsHistory;
 
 $(document).ready(function(){
 	//alert("Add to <div> or something and make multiple views");
-	addHistoryButtons();
+	
+	playerHistory = new buttonHistory({
+		cookieName: 'pHistory',
+		span_id: 'pHistory_list',
+		onClick: function(name) {
+			addPlayerFeed( name );
+		}
+	});/**/
+	
+	tagsHistory = new buttonHistory({
+		cookieName: 'tHistory',
+		span_id: 'tHistory_list',
+		onClick: function(name) {
+			addOutfitFeed( name );
+		}
+	});/**/
 	
 	$('#init_merc_feed').click( function() {
-		feed = addFeed('merc');
+		feed = addOutfitFeed('merc');
 		$('#outfit_feed').val( 'merc' );
 	});
 	
 	$('#add').click( function() {
-		feed = addFeed( $('#outfit_feed').val());
+		feed = addOutfitFeed( $('#outfit_feed').val());
 		
 	});
 	
@@ -43,27 +61,27 @@ $(document).ready(function(){
 	});
 	
 	$('#button2').click( function() {
-		feed = addFeed( 'merc');
-		feed = addFeed( 'oo');
-		feed = addFeed( '666');
-		feed = addFeed( 'exe');		
+		feed = addOutfitFeed( 'merc');
+		feed = addOutfitFeed( 'oo');
+		feed = addOutfitFeed( '666');
+		feed = addOutfitFeed( 'exe');		
 	});
 	
 	$('#button3').click( function() {
-		printCookies();	
+	
 	});
 	
 	$('#button4').click( function() {
-		setCookie("username",'ratch',30);
+		playerHistory.addButton('ratch');
 	});
 	
 	$('#button5').click( function() {
-			
+		tagsHistory.addButton('666');
 	});
 	
 	// press enter on outfit tag 
 	$('#outfit_feed').bind( "enterKey", function(e) {
-		feed = addFeed( $('#outfit_feed').val());
+		feed = addOutfitFeed( $('#outfit_feed').val());
 	});
 	
 	$('#outfit_feed').keyup( function(e) {
@@ -87,8 +105,8 @@ function getFeed(outfit_tag) {
 }
 */
 
-function addFeed(outfit_tag) {
-	checkTagCookie(outfit_tag);
+function addOutfitFeed(outfit_tag) {
+	tagsHistory.addButton(outfit_tag);
 	
 	return new Feed({
 		tag: outfit_tag,
@@ -97,7 +115,7 @@ function addFeed(outfit_tag) {
 }
 
 function addPlayerFeed(player_name) {
-	//checkTagCookie(outfit_tag);
+	playerHistory.addButton(player_name);
 	
 	return new playerFeedWindow({
 		pname: player_name,
@@ -110,19 +128,26 @@ function addPlayerFeed(player_name) {
 
 <body>
 
-<div>
-Outfit Tag:<input id='outfit_feed' type="text" style="width:4em" maxlength="4">
-<button id="add">Add</button>
-<button id="init_merc_feed">MERC</button>
-<button id="button2">Add 4</button>
-<button id="button3">button3</button>
-<button id="button4">button4 set cookie</button>
-<button id="button5">button5 check cookie</button><br />
-Player:<input id='player_feed' type="text" style="width:8em">
-<button id="player_add">Add</button>
-<button id="init_ratch_feed">ratch</button>*add player history*<br />
-<div id="history_list">History:</div>
-<hr>
+<div id ="header-content">
+	<div id="outfit_tag_add">
+		<span class="header-input-label">Outfit Tag:</span><input id='outfit_feed' type="text" style="width:4em" maxlength="4">
+		<button id="add">Add</button>
+		<span id="tHistory_list"></span>
+	</div>
+	<div id="player_name_add">
+		<span class="header-input-label">Player:</span><input id='player_feed' type="text" style="width:8em">
+		<button id="player_add">Add</button>
+		<span id="pHistory_list"></span>
+	</div>
+	
+	<hr>
+	<button id="init_merc_feed">MERC</button>
+	<button id="button2">Add 4</button>
+	<button id="init_ratch_feed">ratch</button>*add player history*<br />
+	<button id="button3">button3</button>
+	<button id="button4">button4 playerHistory.addButton()</button>
+	<button id="button5">button5 tagsHistory.addButton()</button><br />
+	<hr>
 </div><!--
 <div id='first_feed' style="background-color:#EDEDED; ">
 <div>Status:<input type="text" id="con_status" style="width:7em" readonly><br /></div>
@@ -135,6 +160,8 @@ Player:<input id='player_feed' type="text" style="width:8em">
 </div>
 
 <div id='video_wall' style="background-color:#EDEDED; ">
+
+<link rel="stylesheet" href="css/outfitSearch.css" type="text/css" />
  <!--<iframe frameborder="0" scrolling="no" src="http://twitch.tv/hondadude7/chat?popout=" height="500" width="250"></iframe>-->
 </div>
 
@@ -151,8 +178,8 @@ Player:<input id='player_feed' type="text" style="width:8em">
 -->
 
 
-<!--<a href="http://www.twitch.tv/hondadude7" style="padding:2px 0px 4px; display:block; width:345px; font-weight:normal; font-size:10px;text-decoration:underline; text-align:center;">Watch live video from HondaDude7 on www.twitch.tv</a>-->
-</div>
+<!--<a href="http://www.twitch.tv/hondadude7" style="padding:2px 0px 4px; display:block; width:345px; font-weight:normal; font-size:10px;text-decoration:underline; text-align:center;">Watch live video from HondaDude7 on www.twitch.tv</a>
+</div>-->
 
 <!--<button id="button4">button4</button>
 <button id="button5">button5</button>
