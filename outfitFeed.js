@@ -208,7 +208,15 @@ OutfitFeed.prototype.showKillEvent = function(member, other, memIsAttacker, msg)
 	var veh = msg.payload.attacker_vehicle_id;
 	var vLoad = msg.payload.character_loadout_id;
 	var headshot = msg.payload.is_headshot;
+	var verb = '';//= msg.payload.is_headshot;
 	
+	// get verb
+	if( headshot == '1' ) {
+		verb = ' HS\'d ';
+		console.log("verb =",verb);//rch 
+	} else {
+		verb = ' killed ';
+	}
 	if( veh != '0' ) {
 		veh = ' in ' + veh;
 	} else {
@@ -216,11 +224,11 @@ OutfitFeed.prototype.showKillEvent = function(member, other, memIsAttacker, msg)
 	}
 	
 	if( memIsAttacker ) {
-		$(this.feed_id).html( "<strong>"+member+ " killed "+ other + '<br /> with ' + wep + veh +'</strong><br />' + $(this.feed_id).html() );
+		$(this.feed_id).html( "<strong>" + member + verb + other + '<br /> with ' + wep + veh +'</strong><br />' + $(this.feed_id).html() );
 		this.outfitKills++;
 		$(this.kills_id).val( this.outfitKills.toFixed(0) );
 	} else {
-		$(this.feed_id).html( other + " killed "+ member + '<br /> with ' + wep + veh +'</strong><br />' + $(this.feed_id).html() );
+		$(this.feed_id).html( other + verb + member + '<br /> with ' + wep + veh +'</strong><br />' + $(this.feed_id).html() );
 		this.outfitDeaths++;
 		$(this.deaths_id).val( this.outfitDeaths.toFixed(0) );
 	}

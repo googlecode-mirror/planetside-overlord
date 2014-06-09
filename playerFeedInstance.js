@@ -4,7 +4,7 @@
 **/
 function playerFeedWindow (params) {
 	var self = this;
-	var pname = params.pname;
+	var pname = params.pname.toLowerCase();
 	var wall_id = '#' + params.wall_id;
 	var window_id = '#pfeed_' + playerFeedWindow.feedId + '_window';
 	var label_id = '#pfeed_' + playerFeedWindow.feedId + '_label';
@@ -34,7 +34,8 @@ function playerFeedWindow (params) {
 		console.log("wall_id:",window_id," for pname:",pname);
 		$(wall_id).append('<span></span>');
 		$(wall_id + ' span:last').attr("id", window_id.substring(1));
-		$(wall_id + ' span:last').attr("style", "display:inline; float:left; width:250px");
+		$(wall_id + ' span:last').attr("class", 'window tr');
+		//$(wall_id + ' span:last').attr("style", "display:inline; float:left;");
 		console.log("created window_id:", window_id, " for pname:",pname);
 	}
 	
