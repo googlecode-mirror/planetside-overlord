@@ -6,14 +6,15 @@
 <title>outfitSearch.html</title>
 
 <script type="text/javascript" language="Javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-<script src="MemContainer.js"></script>
+<script src="containers/MemContainer.js"></script>
 <script src="outfitFeed.js"></script>
 <script src="playerFeed.js"></script>
-<script src="playerIdContainer.js"></script>
-<script src="feedInstance.js"></script>
-<script src="playerFeedInstance.js"></script>
-<script src="cookieHandler.js"></script>
-<script src="playerHistory.js"></script>
+<script src="containers/playerContainer.js"></script>
+<script src="widget/outfitWindow.js"></script>
+<script src="widget/playerWindow.js"></script>
+<script src="utility/cookieHandler.js"></script>
+<script src="utility/idConverter.js"></script>
+<script src="widget/buttonHistory.js"></script>
 
 <script>
 var feed;
@@ -22,7 +23,7 @@ var playerHistory;
 var tagsHistory;
 
 $(document).ready(function(){
-	//alert("Add to <div> or something and make multiple views");
+	alert('Create global/static playerContainer, Add CSS to OutfitFeed');
 	
 	playerHistory = new buttonHistory({
 		cookieName: 'pHistory',
@@ -52,12 +53,11 @@ $(document).ready(function(){
 	
 	$('#player_add').click( function() {
 		feed = addPlayerFeed( $('#player_feed').val());
-		
 	});
 	
 	$('#init_ratch_feed').click( function() {
 		feed = addPlayerFeed( 'ratch' );
-		
+		$('#player_feed').val( 'ratch' );
 	});
 	
 	$('#button2').click( function() {
@@ -92,23 +92,12 @@ $(document).ready(function(){
 	
 });
 
-/*
-function getFeed(outfit_tag) {
 
-	return new OutfitFeed({
-		tag: outfit_tag,
-		feed_id: 'testp',
-		con_id: 'con_status',
-		totalM_id: 'member_count',
-		kdRatio_id: 'kd_ratio'
-	});
-}
-*/
 
 function addOutfitFeed(outfit_tag) {
 	tagsHistory.addButton(outfit_tag);
 	
-	return new Feed({
+	return new OutfitWindow({
 		tag: outfit_tag,
 		wall_id: 'feed_wall'
 	});
@@ -117,7 +106,7 @@ function addOutfitFeed(outfit_tag) {
 function addPlayerFeed(player_name) {
 	playerHistory.addButton(player_name);
 	
-	return new playerFeedWindow({
+	return new PlayerWindow({
 		pname: player_name,
 		wall_id: 'feed_wall'
 	});
@@ -143,7 +132,7 @@ function addPlayerFeed(player_name) {
 	<hr>
 	<button id="init_merc_feed">MERC</button>
 	<button id="button2">Add 4</button>
-	<button id="init_ratch_feed">ratch</button>*add player history*<br />
+	<button id="init_ratch_feed">ratch</button><br />
 	<button id="button3">button3</button>
 	<button id="button4">button4 playerHistory.addButton()</button>
 	<button id="button5">button5 tagsHistory.addButton()</button><br />
