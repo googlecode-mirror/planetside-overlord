@@ -1,7 +1,7 @@
 /** 
 	playerHistory.js
 	Saves players that have been monitored as a list of buttons.
-	[ 
+	buttons = [ 
 		{name:'Bob', name_lower:'bob', count:11},
 		{name:'Ratch', name_lower:'ratch', count:11},
 		...
@@ -32,7 +32,6 @@ function buttonHistory (params) {
 		} else {
 			buttons = jQuery.parseJSON( Cookie );
 		}
-		console.log( " buttons:",buttons );
 
 		_sortButtons();
 		
@@ -45,8 +44,6 @@ function buttonHistory (params) {
 			
 		}/**/
 	}
-
-	
 
 	function _updateCookie(pname) {
 
@@ -122,7 +119,6 @@ function buttonHistory (params) {
 
 	// PRIVILEDGED FUNCTIONS
 	this.addButton = function(name) {
-		console.log("RCH addButton()");
 		if( _getCookieIndexOf(name) < 0 ) {// create only if new
 			_createButton(name.toLowerCase());
 		}
@@ -134,7 +130,6 @@ function buttonHistory (params) {
 // PUBLIC FUNCTIONS
 	
 // STATIC VARIABLE
-//buttonHistory.id = 0;
 
 
 
