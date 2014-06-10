@@ -4,7 +4,7 @@
 **/
 function PlayerWindow (params) {
 	var self = this;
-	var pname = params.pname.toLowerCase();
+	var pname = params.pname.toLowerCase().trim();
 	var wall_id = '#' + params.wall_id;
 	var window_id = '#pfeed_' + PlayerWindow.feedId + '_window';
 	var label_id = '#pfeed_' + PlayerWindow.feedId + '_label';
@@ -41,7 +41,7 @@ function PlayerWindow (params) {
 	
 	function _createFields(data){
 	
-		console.log("_createFields() data:",data);
+		//console.log("playerWindow.js _createFields() data:",data);
 		
 		// outfit label
 		$(window_id).append('<span></span>');

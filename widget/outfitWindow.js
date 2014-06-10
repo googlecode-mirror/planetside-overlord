@@ -18,7 +18,7 @@ function OutfitWindow (params) {
 	var feed = {};
 	
 	_createWindow();
-	_createFields();
+	//_createFields();
 	_createOutfitFeed();
 	
 	OutfitWindow.feedId++;
@@ -31,11 +31,11 @@ function OutfitWindow (params) {
 		//console.log("wall_id:",window_id," for tag:",tag);
 		$(wall_id).append('<span></span>');
 		$(wall_id + ' span:last').attr("id", window_id.substring(1));
-		$(wall_id + ' span:last').attr("style", "display:inline; float:left; width:250px");
+		//$(wall_id + ' span:last').attr("style", "display:inline; float:left; width:250px");
 		//console.log("created window_id:", window_id, " for tag:",tag);
 	}
 	
-	function _createFields(){
+	function _createFields(data){
 	
 		console.log("window_id:",window_id);
 		
@@ -97,6 +97,9 @@ function OutfitWindow (params) {
 		$(window_id + ' div:last').append('<table></table>');
 		$(window_id + ' table:last').attr("id", queue_id.substring(1));
 		
+		var faction = API.getFactionShort( data.outfit_list[0].leader.faction_id ) ;
+		//console.log("data.:",data);
+		$(window_id).attr("class", 'window ' + faction );
 	}
 	
 	function _createOutfitFeed(){
@@ -110,15 +113,26 @@ function OutfitWindow (params) {
 			totalM_id: online_id.substring(1),
 			kdRatio_id: kd_id.substring(1),
 			kills_id: kills_id.substring(1),
-			deaths_id: deaths_id.substring(1)
+			deaths_id: deaths_id.substring(1),
+			onInfoComplete: function (data) {// 'data' is ...
+				console.log("OutfitFeed onInfoComplete() data:",data);
+				_createFields(data);
+				_createButtonHandles();
+			},
+			onSocketOpen: function () {
+				//console.log("playerFeed onSocketOpen()");
+			}
 		});
 	}
 	
-	$(close_id).click( function() {
-		
-		$(window_id).remove();
-		feed.closeAll();// close connection
-	});
+	function _createButtonHandles(){
+	
+		$(close_id).click( function() {
+			
+			$(window_id).remove();
+			feed.closeAll();// close connection
+		});
+	}
 }
 
 OutfitWindow.feedId = 0;

@@ -17,6 +17,8 @@ function OutfitFeed (params) {
 	this.kdRatio_id = '#'+params.kdRatio_id;
 	this.kills_id = '#'+params.kills_id;
 	this.deaths_id = '#'+params.deaths_id;
+	this.onInfoComplete = params.onInfoComplete;
+	this.onSocketOpen = params.onSocketOpen;
 	
 	this.clearFields();
 	this.pContainer = new PlayerContainer();
@@ -26,6 +28,7 @@ function OutfitFeed (params) {
 		tag: params.tag, 
 		onComplete: function() {
 			//console.log("FEED mContainer.getMemIdArr();", self.mContainer.getMemIdArr() );
+			self.onInfoComplete(self.mContainer.data);
 			self.webSockStart();
 			console.log("FEED tagNormal:", self.mContainer.getTagNormal() );
 			console.log("FEED label_id:", self.label_id );
