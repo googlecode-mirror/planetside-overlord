@@ -6,14 +6,14 @@
 // CONSTRUCTOR: Parameter is outfit tag
 function MemContainer (params) {
 	var self = this;
-	this.data = {};
+	this.data = {};// outfit information
 	this.memArr = [];
 	this.onlineCount = 0;
 	var tag = params.tag.toLowerCase() ;
-	var callback = params.onComplete;
+	var onComplete = params.onComplete;
 	//console.log("OUTFIT params.tag:", tag);
 
-	var url = 'https://census.soe.com/get/ps2:v2/outfit/?alias_lower='+tag+'&c:resolve=member_character(name,type.faction)&c:resolve=member_online_status'
+	var url = 'https://census.soe.com/s:rch/get/ps2:v2/outfit/?alias_lower='+tag+'&c:resolve=member_character(name,type.faction)&c:resolve=member_online_status&c:resolve=leader'
 	//console.log("OUTFIT url=", url);
 	
 	$.ajax({ // get member data
@@ -24,8 +24,8 @@ function MemContainer (params) {
 			self.data = data;
 			console.log("OUTFIT GET data=", self.data);
 			self.memArr = self.createMemArr( self.data.outfit_list[0].members );
-			if (typeof callback === "function") {
-				callback();
+			if (typeof onComplete === "function") {
+				onComplete(data);
 			} else {
 				throw "onComplete is not a function!";
 			}

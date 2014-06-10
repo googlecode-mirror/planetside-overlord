@@ -119,6 +119,7 @@ function buttonHistory (params) {
 
 	// PRIVILEDGED FUNCTIONS
 	this.addButton = function(name) {
+		name = name.trim();
 		if( _getCookieIndexOf(name) < 0 ) {// create only if new
 			_createButton(name.toLowerCase());
 		}
