@@ -10,6 +10,7 @@ function OutfitFeed (params) {
 	this.outfitKills = 0.0;
 	this.outfitDeaths = 0.0;
 	this.mContainer = {};
+	this.updater = null;
 	this.con_id = '#'+params.con_id;
 	this.label_id = '#'+params.label_id;
 	this.feed_id = '#'+params.feed_id;
@@ -21,7 +22,7 @@ function OutfitFeed (params) {
 	this.onSocketOpen = params.onSocketOpen;
 	
 	this.clearFields();
-	this.pContainer = new PlayerContainer();
+	//this.pContainer = new PlayerContainer();// change to P_INFO
 	
 	// create outfit info
 	this.mContainer = new MemContainer({
@@ -72,7 +73,7 @@ OutfitFeed.prototype.webSockStart = function() {
 	};/**/
 	
 	// check connection status
-	setInterval( function(){
+	this.updater = setInterval( function(){
 		self.updateStatus();
 		self.updateTotalMembers();
 	},2000);
@@ -182,31 +183,28 @@ OutfitFeed.prototype.handleKillEvent = function(msg) {
 		memIsAttacker = false;
 	}
 
-	// get other name
-	index = this.pContainer.indexOfId(other);
-	if( index >= 0 ) {// other already in feed
-		other = this.pContainer.parr[index].name;
-		this.showKillEvent(member, other, memIsAttacker, msg);
-	} else {// other not in feed
-		$.ajax({
-			type: "GET",
-			dataType: "jsonp",
-			url: 'http://census.soe.com/s:rch/get/ps2:v2/character/?character_id=' + other + '&c:show=name',
-				success: function(data){
-					if( data.character_list[0].name.first == null ) {
-						console.error("handleKillEvent Error on name:", data.character_list[0].name);
-					} else {
-						other = data.character_list[0].name.first;// CHECK FOR .name == null
-					}
-					self.showKillEvent(member, other, memIsAttacker, msg);
-			}
+	// store player in P_INFO
+	P_INFO.addById(other, function() {// onComplete
+		WEP_INFO.addById(msg.payload.attacker_weapon_id, function() {// onComplete
+			VEH_INFO.addById(msg.payload.attacker_vehicle_id, function() {// onComplete
+				self.showKillEvent(
+					member, 
+					P_INFO.getNameById(other), 
+					memIsAttacker, 
+					msg,
+					WEP_INFO.getNameById(msg.payload.attacker_weapon_id),
+					VEH_INFO.getNameById(msg.payload.attacker_vehicle_id)
+				);
+			});
 		});
-	}
+	});
+	//P_INFO.myPrint();
 }
 
-OutfitFeed.prototype.showKillEvent = function(member, other, memIsAttacker, msg) {
+OutfitFeed.prototype.showKillEvent = function(member, other, memIsAttacker, msg, wep_name, veh_name) {
 	var mode = msg.payload.attacker_fire_mode_id;
-	var wep = msg.payload.attacker_weapon_id;
+	//var wep = msg.payload.attacker_weapon_id;
+	var wep = wep_name;
 	var aLoad = msg.payload.attacker_loadout_id;
 	var veh = msg.payload.attacker_vehicle_id;
 	var vLoad = msg.payload.character_loadout_id;
@@ -216,18 +214,17 @@ OutfitFeed.prototype.showKillEvent = function(member, other, memIsAttacker, msg)
 	// get verb
 	if( headshot == '1' ) {
 		verb = ' HS\'d ';
-		console.log("verb =",verb);//rch 
 	} else {
 		verb = ' killed ';
 	}
 	if( veh != '0' ) {
-		veh = ' in ' + veh;
+		veh = ' in ' + veh_name;
 	} else {
 		veh = '';
 	}
 	
 	if( memIsAttacker ) {
-		$(this.feed_id).html( "<strong>" + member + verb + other + '<br /> with ' + wep + veh +'</strong><br />' + $(this.feed_id).html() );
+		$(this.feed_id).html( "<strong>" + member + (member==other?' committed suicide...':verb + other) + '<br /> with ' + wep + veh +'</strong><br />' + $(this.feed_id).html() );
 		this.outfitKills++;
 		$(this.kills_id).val( this.outfitKills.toFixed(0) );
 	} else {
@@ -249,6 +246,7 @@ OutfitFeed.prototype.clearFields = function() {
 
 OutfitFeed.prototype.closeAll = function() {
 	this.connection.close();
+	clearInterval(this.updater);
 }
   
 

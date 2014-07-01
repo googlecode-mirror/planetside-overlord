@@ -12,6 +12,7 @@ function PlayerFeed (params) {
 	this.outfitKills = 0.0;
 	this.outfitDeaths = 0.0;
 	this.mContainer = {};
+	this.updater = null;
 	this.con_id = '#'+params.con_id;
 	this.label_id = '#'+params.label_id;
 	this.feed_id = '#'+params.feed_id;
@@ -80,14 +81,14 @@ PlayerFeed.prototype.webSockStart = function(pid) {
 	};/**/
 	
 	// check connection status
-	setInterval( function(){
+	this.updater = setInterval( function(){
 		self.updateStatus();
 		//self.updateTotalMembers();
 	},2000);
 }
 
 PlayerFeed.prototype.updateStatus = function() {
-	console.log("con status:", this.connection.readyState,"con_id:", this.con_id);
+	//console.log("con status:", this.connection.readyState,"con_id:", this.con_id);
 	if (this.connection != null) {
 		switch(this.connection.readyState) {
 			case 0:
@@ -231,6 +232,7 @@ PlayerFeed.prototype.clearFields = function() {
 
 PlayerFeed.prototype.closeAll = function() {
 	this.connection.close();
+	clearInterval(this.updater);
 }
 
 

@@ -6,6 +6,9 @@
 <title>outfitSearch.html</title>
 
 <script type="text/javascript" language="Javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script src="utility/playerPedia.js"></script>
+<script src="utility/weaponPedia.js"></script>
+<script src="utility/vehiclePedia.js"></script>
 <script src="containers/MemContainer.js"></script>
 <script src="outfitFeed.js"></script>
 <script src="playerFeed.js"></script>
@@ -18,12 +21,15 @@
 
 <script>
 var feed;
-var pContainer;
+//var pContainer;
 var playerHistory;
 var tagsHistory;
 
 $(document).ready(function(){
-	//alert('Create global/static playerContainer, Add CSS to OutfitFeed');
+	alert('Remove playerContainer and replace with P_INFO playerPedia.js');
+	
+	P_INFO.myPrint();
+	WEP_INFO.myPrint();
 	
 	playerHistory = new buttonHistory({
 		cookieName: 'pHistory',
