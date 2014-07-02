@@ -16,13 +16,14 @@ function OutfitWindow (params) {
 	var deaths_id = '#feed_' + OutfitWindow.feedId + '_deaths';
 	var queue_id = '#feed_' + OutfitWindow.feedId + '_queue';
 	var feed = {};
+	var allWindowsIndex = OutfitWindow.allWindows.length;
 	
 	_createWindow();
 	//_createFields();
 	_createOutfitFeed();
 	
 	OutfitWindow.feedId++;
-	
+	OutfitWindow.allWindows.push(this);
 
 // PRIVATE FUNCTIONS
 	
@@ -126,18 +127,31 @@ function OutfitWindow (params) {
 	}
 	
 	function _createButtonHandles(){
-	
+		var self = this;
 		$(close_id).click( function() {
-			
-			$(window_id).remove();
-			feed.closeAll();// close connection
+			_closeThis();
 		});
 	}
+	
+	function _closeThis() {
+		$(window_id).remove();
+		feed.closeAll();// close connection
+		
+	}
+	
+	// PRIVILEDGED FUNCTIONS
+	this.closeWin = _closeThis;// give public access to _closeThis() 
 }
 
 OutfitWindow.feedId = 0;
-
-
+OutfitWindow.allWindows = [];
+OutfitWindow.closeAll = function () {
+	console.log("allWindows:", OutfitWindow.allWindows);
+	for(var i = 0; i < OutfitWindow.allWindows.length;  ++i ) {
+		OutfitWindow.allWindows[i].closeWin();
+	}
+	OutfitWindow.allWindows = [];
+}
 
 
 

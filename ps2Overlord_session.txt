@@ -1,0 +1,21 @@
+<NotepadPlus>
+    <Session activeView="1">
+        <mainView activeIndex="2">
+            <File firstVisibleLine="18" xOffset="0" scrollWidth="1620" startPos="7592" endPos="7600" selMode="0" lang="Javascript" encoding="-1" filename="D:\xampp\htdocs\ps2\outfitFeed.js" />
+            <File firstVisibleLine="17" xOffset="0" scrollWidth="1620" startPos="932" endPos="932" selMode="0" lang="Javascript" encoding="-1" filename="D:\xampp\htdocs\ps2\containers\MemContainer.js" />
+            <File firstVisibleLine="117" xOffset="0" scrollWidth="1620" startPos="4951" endPos="4951" selMode="0" lang="Javascript" encoding="-1" filename="D:\xampp\htdocs\ps2\widget\outfitWindow.js" />
+            <File firstVisibleLine="105" xOffset="0" scrollWidth="1620" startPos="2651" endPos="2651" selMode="0" lang="Javascript" encoding="-1" filename="D:\xampp\htdocs\ps2\widget\buttonHistory.js" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1620" startPos="301" endPos="301" selMode="0" lang="Javascript" encoding="-1" filename="D:\xampp\htdocs\ps2\utility\cookieHandler.js" />
+            <File firstVisibleLine="30" xOffset="0" scrollWidth="1620" startPos="897" endPos="912" selMode="0" lang="Javascript" encoding="-1" filename="D:\xampp\htdocs\ps2\utility\idConverter.js" />
+            <File firstVisibleLine="85" xOffset="0" scrollWidth="549" startPos="2481" endPos="2481" selMode="0" lang="Javascript" encoding="-1" filename="D:\xampp\htdocs\ps2\utility\playerPedia.js" />
+            <File firstVisibleLine="18" xOffset="0" scrollWidth="1620" startPos="916" endPos="916" selMode="0" lang="Javascript" encoding="-1" filename="D:\xampp\htdocs\ps2\utility\weaponPedia.js" />
+            <File firstVisibleLine="82" xOffset="0" scrollWidth="1620" startPos="2584" endPos="2584" selMode="0" lang="Javascript" encoding="-1" filename="D:\xampp\htdocs\ps2\utility\vehiclePedia.js" />
+        </mainView>
+        <subView activeIndex="0">
+            <File firstVisibleLine="102" xOffset="0" scrollWidth="5634" startPos="2979" endPos="2979" selMode="0" lang="HTML" encoding="-1" filename="D:\xampp\htdocs\ps2\outfitSearch.html" />
+            <File firstVisibleLine="18" xOffset="0" scrollWidth="4806" startPos="825" endPos="825" selMode="0" lang="CSS" encoding="-1" filename="D:\xampp\htdocs\ps2\css\outfitSearch.css" />
+            <File firstVisibleLine="189" xOffset="0" scrollWidth="4806" startPos="5739" endPos="5739" selMode="0" lang="Javascript" encoding="-1" filename="D:\xampp\htdocs\ps2\playerFeed.js" />
+            <File firstVisibleLine="145" xOffset="0" scrollWidth="5634" startPos="6692" endPos="6692" selMode="0" lang="Javascript" encoding="-1" filename="D:\xampp\htdocs\ps2\widget\playerWindow.js" />
+        </subView>
+    </Session>
+</NotepadPlus>

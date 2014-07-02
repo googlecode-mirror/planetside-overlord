@@ -12,21 +12,22 @@
 <script src="containers/MemContainer.js"></script>
 <script src="outfitFeed.js"></script>
 <script src="playerFeed.js"></script>
-<script src="containers/playerContainer.js"></script>
 <script src="widget/outfitWindow.js"></script>
 <script src="widget/playerWindow.js"></script>
 <script src="utility/cookieHandler.js"></script>
 <script src="utility/idConverter.js"></script>
 <script src="widget/buttonHistory.js"></script>
 
+<!-- DOJO CSS -->
+<link rel="stylesheet" href="../dojoprojects/dijit/themes/claro/claro.css" />
+
 <script>
 var feed;
-//var pContainer;
 var playerHistory;
 var tagsHistory;
 
 $(document).ready(function(){
-	alert('Remove playerContainer and replace with P_INFO playerPedia.js');
+	//alert('');
 	
 	P_INFO.myPrint();
 	WEP_INFO.myPrint();
@@ -49,21 +50,21 @@ $(document).ready(function(){
 	
 	$('#init_merc_feed').click( function() {
 		feed = addOutfitFeed('merc');
-		$('#outfit_feed').val( 'merc' );
+		$('#outfit_text_input').val( 'merc' );
 	});
 	
-	$('#add').click( function() {
-		feed = addOutfitFeed( $('#outfit_feed').val());
+	$('#outfit_add').click( function() {
+		feed = addOutfitFeed( $('#outfit_text_input').val());
 		
 	});
 	
 	$('#player_add').click( function() {
-		feed = addPlayerFeed( $('#player_feed').val());
+		feed = addPlayerFeed( $('#player_text_input').val());
 	});
 	
 	$('#init_ratch_feed').click( function() {
 		feed = addPlayerFeed( 'ratch' );
-		$('#player_feed').val( 'ratch' );
+		$('#player_text_input').val( 'ratch' );
 	});
 	
 	$('#button2').click( function() {
@@ -74,23 +75,34 @@ $(document).ready(function(){
 	});
 	
 	$('#button3').click( function() {
-	
+		tagsHistory.clickAll();
 	});
 	
 	$('#button4').click( function() {
-		playerHistory.addButton('ratch');
+		playerHistory.clickAll();
 	});
 	
 	$('#button5').click( function() {
 		tagsHistory.addButton('666');
 	});
 	
-	// press enter on outfit tag 
-	$('#outfit_feed').bind( "enterKey", function(e) {
-		feed = addOutfitFeed( $('#outfit_feed').val());
+	// press enter on outfit_text_input
+	$('#outfit_text_input').bind( "enterKey", function(e) {
+		feed = addOutfitFeed( $('#outfit_text_input').val());
 	});
 	
-	$('#outfit_feed').keyup( function(e) {
+	$('#outfit_text_input').keyup( function(e) {
+		if( e.keyCode == 13 )	{
+			$(this).trigger("enterKey");
+		}
+	});
+	
+	// press enter on player_text_input
+	$('#player_text_input').bind( "enterKey", function(e) {
+		feed = addPlayerFeed( $('#player_text_input').val());
+	});
+	
+	$('#player_text_input').keyup( function(e) {
 		if( e.keyCode == 13 )	{
 			$(this).trigger("enterKey");
 		}
@@ -105,7 +117,8 @@ function addOutfitFeed(outfit_tag) {
 	
 	return new OutfitWindow({
 		tag: outfit_tag,
-		wall_id: 'feed_wall'
+		//wall_id: 'outfit_feed_wall'
+		wall_id: 'player_feed_wall'
 	});
 }
 
@@ -114,23 +127,132 @@ function addPlayerFeed(player_name) {
 	
 	return new PlayerWindow({
 		pname: player_name,
-		wall_id: 'feed_wall'
+		wall_id: 'player_feed_wall'
 	});
 }
 </script>
 
 </head>
 
-<body>
+<body class='claro'>    
+	<!-- configure Dojo -->
+    <script>
+        // Instead of using data-dojo-config, we're creating a dojoConfig
+        // object *before* we load dojo.js; they're functionally identical,
+        // it's just easier to read this approach with a larger configuration.
+        var dojoConfig = {
+            // This code registers the correct location of the "demo"
+            // package so we can load Dojo from the CDN whilst still
+            // being able to load local modules
+            async: true,
+			baseUrl: './../dojoprojects/',
+            packages: [
+				'dojo',
+				'dijit',
+				'dojox',
+				'ps2',
+				'demo'
+            ]
+        };
+    </script>
+    <!-- load Dojo 
+    <script src="dojo/dojo.js"></script>-->
+	<script src="//ajax.googleapis.com/ajax/libs/dojo/1.9.3/dojo/dojo.js"></script>
+	
+	<script>
+		<!-- Tab Container -->
+		require([
+			"dijit/layout/TabContainer", 
+			"dijit/layout/ContentPane",
+			"dijit/form/Button", 
+			"dojo/dom", 
+			"dojo/domReady!"
+		], function(
+			TabContainer, 
+			ContentPane, 
+			Button, 
+			dom
+		){
+			var tc = new TabContainer({
+				style: "height: 100%; width: 100%;",
+				doLayout:false
+			}, "tab_container");
+
+			var playerFeedTab = new ContentPane({
+				 title: "Players",
+				 closable: true,
+				 content: '<div id="player_feed_wall"  style="min-height:400px;"></div>',
+				 onClose: function() {
+					PlayerWindow.closeAll();
+					return false;
+				 }
+			});
+			tc.addChild(playerFeedTab);
+
+			var OutfitFeedTab = new ContentPane({
+				 title: "Outfits",
+				 closable: true,
+				 content: '<div id="outfit_feed_wall" ></div>',
+				 onClose: function() {
+					OutfitWindow.closeAll();
+					return false;
+				 }
+			});
+			tc.addChild(OutfitFeedTab);
+/*
+			var cp3 = new ContentPane({
+				title: "Third Tab",
+				content: "This Tab has the attribute 'selected: true' set.",
+				selected: true
+			});
+			tc.addChild(cp3);
+
+			var closablePane = new ContentPane({
+				title:"Close Me",
+				content: "I close when i want!",
+				closable: true,
+				disabled: true,
+				onClose: function(){
+				   // confirm() returns true or false, so return that.
+				   return confirm("Do you really want to Close this?");
+				}
+			});
+			tc.addChild(closablePane);
+*/
+			tc.startup();
+			/*var count = 0;
+			var tempTab;
+			var addTab = function() {
+				tempTab = new ContentPane({
+					 title: "Food"+count,
+					 content: ""
+				});
+				tc.addChild(tempTab);
+			}
+			
+			// Create a button programmatically:
+					console.log("RCH asdfasdfad");
+			var myButton = new Button({
+				label: "Click me!",
+				onClick: function(){
+					console.log("RCH click");
+					addTab();
+				}
+			});
+			myButton.startup();
+			myButton.placeAt( dom.byId('testp') );
+			*/
+		});
+	</script>
 
 <div id ="header-content">
 	<div id="outfit_tag_add">
-		<span class="header-input-label">Outfit Tag:</span><input id='outfit_feed' type="text" style="width:4em" maxlength="4">
-		<button id="add">Add</button>
+		<span class="header-input-label">Outfit Tag:</span><input id='outfit_text_input' type="text" style="width:4em" maxlength="4">
+		<button id="outfit_add">Add</button>
 		<span id="tHistory_list"></span>
 	</div>
 	<div id="player_name_add">
-		<span class="header-input-label">Player:</span><input id='player_feed' type="text" style="width:8em">
+		<span class="header-input-label">Player:</span><input id='player_text_input' type="text" style="width:8em">
 		<button id="player_add">Add</button>
 		<span id="pHistory_list"></span>
 	</div>
@@ -139,8 +261,8 @@ function addPlayerFeed(player_name) {
 	<button id="init_merc_feed">MERC</button>
 	<button id="button2">Add 4</button>
 	<button id="init_ratch_feed">ratch</button><br />
-	<button id="button3">button3</button>
-	<button id="button4">button4 playerHistory.addButton()</button>
+	<button id="button3">Add All Tags</button>
+	<button id="button4">Add All Players</button>
 	<button id="button5">button5 tagsHistory.addButton()</button><br />
 	<hr>
 </div><!--
@@ -150,14 +272,16 @@ function addPlayerFeed(player_name) {
 <div>K/D:<input type="text" id="kd_ratio" style="width:5em" readonly><br /></div>
 </div>-->
 
-<div id='feed_wall' style="background-color:#EDEDED; ">
+<div id='tab_container' ">
 
-</div>
+	<!--<div id='feed_wall' style="background-color:#EDEDED; "></div>-->
 
-<div id='video_wall' style="background-color:#EDEDED; ">
+	<div id='video_wall' style="background-color:#EDEDED; ">
 
-<link rel="stylesheet" href="css/outfitSearch.css" type="text/css" />
- <!--<iframe frameborder="0" scrolling="no" src="http://twitch.tv/hondadude7/chat?popout=" height="500" width="250"></iframe>-->
+	<link rel="stylesheet" href="css/outfitSearch.css" type="text/css" />
+	 <!--<iframe frameborder="0" scrolling="no" src="http://twitch.tv/hondadude7/chat?popout=" height="500" width="250"></iframe>-->
+	</div>
+	
 </div>
 
 
