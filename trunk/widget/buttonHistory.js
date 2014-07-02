@@ -126,6 +126,12 @@ function buttonHistory (params) {
 			_updateCookie(name.toLowerCase());
 	}
 	
+	this.clickAll = function() {
+		for( var i = 0; i < buttons.length; ++i ) {
+			onClick(buttons[i].pname);
+		}
+	}
+	
 }
 
 // PUBLIC FUNCTIONS

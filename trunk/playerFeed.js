@@ -24,13 +24,12 @@ function PlayerFeed (params) {
 	this.onSocketOpen = params.onSocketOpen;
 	
 	this.clearFields();
-	this.pContainer = new PlayerContainer();
 	
 	$.ajax({ 
 	   type: "GET",
 	   dataType: "jsonp",
-	   url: 'http://census.soe.com/get/ps2/character/?name.first_lower=' + self.pname + '&c:resolve=online_status',
-	   //url: 'http://census.soe.com/get/ps2/character/?name.first_lower=' + self.pname,
+	   url: 'http://census.soe.com/s:rch/get/ps2/character/?name.first_lower=' + self.pname + '&c:resolve=online_status',
+	   //url: 'http://census.soe.com/s:rch/get/ps2/character/?name.first_lower=' + self.pname,
 	   success: function(data){
 		 console.log("RCH startup():", data);
 		 //self.init( data.character_list[0].character_id, player_name);
@@ -41,8 +40,6 @@ function PlayerFeed (params) {
 		 self.webSockStart(self.pid);
 	   }
 	});
-	
-	this.pContainer = new PlayerContainer();
 	
 }
 
@@ -164,31 +161,27 @@ PlayerFeed.prototype.handleKillEvent = function(msg) {
 		other = attacker;
 	}
 	
-	var index = this.pContainer.indexOfId(other);
-	
-	if( index >= 0 ) {// other already in feed
-		other = this.pContainer.getNameByIndex(index);
-		this.showKillEvent(self.pname, other, playerIsAttacker, msg);
-	} else {// other not in feed
-		$.ajax({
-			type: "GET",
-			dataType: "jsonp",
-			url: 'http://census.soe.com/s:rch/get/ps2:v2/character/?character_id=' + other + '&c:show=name',
-			success: function(data){
-				if( data.character_list[0].name.first == null ) {
-					console.error("handleKillEvent Error on name:", data.character_list[0].name);
-				} else {
-					other = data.character_list[0].name.first;// CHECK FOR .name == null
-				}
-				self.showKillEvent(self.pname, other, playerIsAttacker, msg);
-			}
+	// store player in P_INFO
+	P_INFO.addById(other, function() {// onComplete
+		WEP_INFO.addById(msg.payload.attacker_weapon_id, function() {// onComplete
+			VEH_INFO.addById(msg.payload.attacker_vehicle_id, function() {// onComplete
+				self.showKillEvent(
+					self.pname, 
+					P_INFO.getNameById(other), 
+					playerIsAttacker, 
+					msg,
+					WEP_INFO.getNameById(msg.payload.attacker_weapon_id),
+					VEH_INFO.getNameById(msg.payload.attacker_vehicle_id)
+				);
+			});
 		});
-	}
+	});
 }
 
-PlayerFeed.prototype.showKillEvent = function(member, other, memIsAttacker, msg) {
+PlayerFeed.prototype.showKillEvent = function(member, other, memIsAttacker, msg, wep_name, veh_name) {
 	var mode = msg.payload.attacker_fire_mode_id;
-	var wep = msg.payload.attacker_weapon_id;
+	//var wep = msg.payload.attacker_weapon_id;
+	var wep = wep_name;
 	var aLoad = msg.payload.attacker_loadout_id;
 	var veh = msg.payload.attacker_vehicle_id;
 	var vLoad = msg.payload.character_loadout_id;
@@ -203,14 +196,14 @@ PlayerFeed.prototype.showKillEvent = function(member, other, memIsAttacker, msg)
 		verb = ' killed ';
 	}
 	if( veh != '0' ) {
-		veh = ' in ' + veh;
+		veh = ' in ' + veh_name;
 	} else {
 		veh = '';
 	}
 	
 	if( memIsAttacker ) {
 		
-		$(this.feed_id).html( "<strong>" + member + verb + other + '<br /> with ' + wep + veh + '</strong><br />' + $(this.feed_id).html() );
+		$(this.feed_id).html( "<strong>" + member + (member==other?' committed suicide...':verb + other) + '<br /> with ' + wep + veh + '</strong><br />' + $(this.feed_id).html() );
 		this.outfitKills++;
 		$(this.kills_id).val( this.outfitKills.toFixed(0) );
 	} else {

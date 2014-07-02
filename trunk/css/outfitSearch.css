@@ -37,7 +37,8 @@ body {
 	display: inline;
 }
 
-.feed_wall {
+.outfit_feed_wall, .player_feed_wall{
+	background: #6A6A6A;
 }
 
 .window.TR {

@@ -22,7 +22,6 @@ function OutfitFeed (params) {
 	this.onSocketOpen = params.onSocketOpen;
 	
 	this.clearFields();
-	//this.pContainer = new PlayerContainer();// change to P_INFO
 	
 	// create outfit info
 	this.mContainer = new MemContainer({
