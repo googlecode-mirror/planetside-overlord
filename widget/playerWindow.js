@@ -153,7 +153,7 @@ function PlayerWindow (params) {
 			//$(queue_id).remove();
 			//$(feedDiv_id).append('<div id="video_wall2" style="background-color:#EDEDED; "><object type="application/x-shockwave-flash" height="170"  width="250" id="live_embed_player_flash" data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=hondadude7" bgcolor="#000000"><param name="allowFullScreen" value="true" /><param name="allowScriptAccess" value="always" /><param name="allowNetworking" value="all" /><param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" /><param name="flashvars" value="hostname=www.twitch.tv&channel=hondadude7&auto_play=true&start_volume=25" /></object>');
 		});
-	}	
+	}
 	
 	function _closeThis() {
 		$(window_id).remove();
