@@ -42,17 +42,17 @@ body {
 }
 
 .window.TR {
-	border:1px solid #A0080D;/*red*/
+	border:5px solid #FF0000;/*#A0080D;red*/
 	margin: 10px;
 }
 
 .window.VS {
-	border:1px solid #56307C;/*purple*/
+	border:5px solid #56307C;/*purple*/
 	margin: 10px;
 }
 
 .window.NC {
-	border:1px solid #0000CF;/*blue*/
+	border:5px solid #0000FF;/*blue*/
 	margin: 10px;
 }
 

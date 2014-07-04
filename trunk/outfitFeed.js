@@ -192,7 +192,9 @@ OutfitFeed.prototype.handleKillEvent = function(msg) {
 					memIsAttacker, 
 					msg,
 					WEP_INFO.getNameById(msg.payload.attacker_weapon_id),
-					VEH_INFO.getNameById(msg.payload.attacker_vehicle_id)
+					VEH_INFO.getNameById(msg.payload.attacker_vehicle_id),
+					P_INFO.getOutfitAliasById(other),
+					P_INFO.getBattleRankById(other)
 				);
 			});
 		});
@@ -200,7 +202,7 @@ OutfitFeed.prototype.handleKillEvent = function(msg) {
 	//P_INFO.myPrint();
 }
 
-OutfitFeed.prototype.showKillEvent = function(member, other, memIsAttacker, msg, wep_name, veh_name) {
+OutfitFeed.prototype.showKillEvent = function(member, other, memIsAttacker, msg, wep_name, veh_name, _outfit, br) {
 	var mode = msg.payload.attacker_fire_mode_id;
 	//var wep = msg.payload.attacker_weapon_id;
 	var wep = wep_name;
@@ -209,6 +211,17 @@ OutfitFeed.prototype.showKillEvent = function(member, other, memIsAttacker, msg,
 	var vLoad = msg.payload.character_loadout_id;
 	var headshot = msg.payload.is_headshot;
 	var verb = '';//= msg.payload.is_headshot;
+	
+	// get outfit
+	var outfit = '[]';
+	if( _outfit != null ) {
+		outfit = '['+_outfit+']';
+	} else {
+		outfit = '';
+	}
+	
+	// get battle_rank
+	outfit = outfit + br + ':';
 	
 	// get verb
 	if( headshot == '1' ) {
@@ -223,11 +236,11 @@ OutfitFeed.prototype.showKillEvent = function(member, other, memIsAttacker, msg,
 	}
 	
 	if( memIsAttacker ) {
-		$(this.feed_id).html( "<strong>" + member + (member==other?' committed suicide...':verb + other) + '<br /> with ' + wep + veh +'</strong><br />' + $(this.feed_id).html() );
+		$(this.feed_id).html( "<strong>" + member + (member==other?' committed suicide...':verb + outfit + other) + '<br /> with ' + wep + veh +'</strong><br />' + $(this.feed_id).html() );
 		this.outfitKills++;
 		$(this.kills_id).val( this.outfitKills.toFixed(0) );
 	} else {
-		$(this.feed_id).html( other + verb + member + '<br /> with ' + wep + veh +'</strong><br />' + $(this.feed_id).html() );
+		$(this.feed_id).html( outfit + other + verb + member + '<br /> with ' + wep + veh +'</strong><br />' + $(this.feed_id).html() );
 		this.outfitDeaths++;
 		$(this.deaths_id).val( this.outfitDeaths.toFixed(0) );
 	}

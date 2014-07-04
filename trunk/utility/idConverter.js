@@ -28,10 +28,10 @@ var API_Singleton = (function () {
 		 getFaction: function(faction_id) {
 			switch (parseInt(faction_id, 10)) {
 			case 1:
-				return "New Conglomerate";
+				return "Vanu Sovereignty";
 				break;
 			case 2:
-				return "Vanu Sovereignty";
+				return "New Conglomerate";
 				break;
 			case 3:
 				return "Terran Republic";
@@ -46,10 +46,10 @@ var API_Singleton = (function () {
 			console.log("fa:",faction_id);
 			switch (parseInt(faction_id, 10)) {
 			case 1:
-				return "NC";
+				return "VS";
 				break;
 			case 2:
-				return "VS";
+				return "NC";
 				break;
 			case 3:
 				return "TR";

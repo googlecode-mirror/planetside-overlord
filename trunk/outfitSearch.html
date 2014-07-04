@@ -17,6 +17,7 @@
 <script src="utility/cookieHandler.js"></script>
 <script src="utility/idConverter.js"></script>
 <script src="widget/buttonHistory.js"></script>
+<script src="widget/bountyWindow.js"></script>
 
 <!-- DOJO CSS -->
 <link rel="stylesheet" href="../dojoprojects/dijit/themes/claro/claro.css" />
@@ -72,6 +73,7 @@ $(document).ready(function(){
 		feed = addOutfitFeed( 'oo');
 		feed = addOutfitFeed( '666');
 		feed = addOutfitFeed( 'exe');		
+		feed = addOutfitFeed( 'baid');		
 	});
 	
 	$('#button3').click( function() {
@@ -119,6 +121,16 @@ function addOutfitFeed(outfit_tag) {
 		tag: outfit_tag,
 		//wall_id: 'outfit_feed_wall'
 		wall_id: 'player_feed_wall'
+	});
+}
+
+function addBounty(outfit_tag) {
+	//tagsHistory.addButton(outfit_tag);//todo make bounty tag history
+	
+	return new BountyWindow({
+		tag: outfit_tag,
+		//wall_id: 'outfit_feed_wall'
+		wall_id: 'bounty_feed_wall'
 	});
 }
 
@@ -180,7 +192,7 @@ function addPlayerFeed(player_name) {
 
 			var playerFeedTab = new ContentPane({
 				 title: "Players",
-				 closable: true,
+				 //closable: true,
 				 content: '<div id="player_feed_wall"  style="min-height:400px;"></div>',
 				 onClose: function() {
 					PlayerWindow.closeAll();
@@ -191,22 +203,22 @@ function addPlayerFeed(player_name) {
 
 			var OutfitFeedTab = new ContentPane({
 				 title: "Outfits",
-				 closable: true,
-				 content: '<div id="outfit_feed_wall" ></div>',
+				 //closable: true,
+				 content: '<div id="outfit_feed_wall" style="min-height:400px;"></div>',
 				 onClose: function() {
 					OutfitWindow.closeAll();
 					return false;
 				 }
 			});
 			tc.addChild(OutfitFeedTab);
-/*
-			var cp3 = new ContentPane({
-				title: "Third Tab",
-				content: "This Tab has the attribute 'selected: true' set.",
+
+			var BountyTab = new ContentPane({
+				title: "Bounty",
+				content: '<div id="bounty_feed_wall" style="min-height:400px;"></div>',
 				selected: true
 			});
-			tc.addChild(cp3);
-
+			tc.addChild(BountyTab);
+/*
 			var closablePane = new ContentPane({
 				title:"Close Me",
 				content: "I close when i want!",
@@ -220,6 +232,7 @@ function addPlayerFeed(player_name) {
 			tc.addChild(closablePane);
 */
 			tc.startup();
+			addBounty('merc');
 			/*var count = 0;
 			var tempTab;
 			var addTab = function() {
@@ -259,7 +272,7 @@ function addPlayerFeed(player_name) {
 	
 	<hr>
 	<button id="init_merc_feed">MERC</button>
-	<button id="button2">Add 4</button>
+	<button id="button2">Add 5</button>
 	<button id="init_ratch_feed">ratch</button><br />
 	<button id="button3">Add All Tags</button>
 	<button id="button4">Add All Players</button>
