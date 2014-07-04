@@ -50,15 +50,28 @@ var PlayerPedia = (function () {
 				$.ajax({
 					type: "GET",
 					dataType: "jsonp",
-					url: 'http://census.soe.com/s:rch/get/ps2:v2/character/?character_id=' + id + '&c:show=name',
+					url: 'http://census.soe.com/s:rch/get/ps2:v2/character/?character_id=' + id + '&c:resolve=outfit_member_extended,currency,profile,world',
 					success: function(data){
-						//console.log("P_INFO addById() ajaxL data:", data);
+						console.log("P_INFO addById() ajaxL data:", data);
+						
 						if( data.character_list[0] != null ) {
+							
+							var outfit = null;
+							if( data.character_list[0].outfit_member != null ) {
+								outfit = {
+									id: data.character_list[0].outfit_member.outfit_id,
+									alias: data.character_list[0].outfit_member.alias,
+									alias_lower: data.character_list[0].outfit_member.alias_lower
+								};
+							}
+						
 							name = data.character_list[0].name.first;
 							_add( {
 								id: id,
 								name: data.character_list[0].name.first,
 								name_lower: data.character_list[0].name.first_lower,
+								outfit: outfit,
+								battle_rank: data.character_list[0].battle_rank,
 								count: 0
 							} );
 							//self.myPrint();
@@ -92,8 +105,24 @@ var PlayerPedia = (function () {
 
 		getNameById: function(id) {
 			//console.log("P_INFO getNameById(id:", id, ")");
-			pArr[this.indexOfId(id)].count++;
+			pArr[this.indexOfId(id)].count++;// wtf is this here??
 			return pArr[this.indexOfId(id)].name;
+		},
+
+		getOutfitAliasById: function(id) {
+			var ind = this.indexOfId(id);
+			console.log("P_INFO pArr[ind].outfit:", pArr[ind].outfit, ")");
+			if( pArr[ind].outfit != null ){
+				return pArr[ind].outfit.alias;
+			} else {
+				return null;
+			}
+		},
+
+		getBattleRankById: function(id) {
+			var ind = this.indexOfId(id);
+			return pArr[ind].battle_rank.value;
+			
 		}
 
 

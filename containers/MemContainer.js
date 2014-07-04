@@ -47,7 +47,7 @@ MemContainer.prototype.createMemArr = function(members) {
 				isOnline: members[i].online_status
 			});
 		}
-		if( members[i].online_status == '1' ) {
+		if( members[i].online_status != '0' ) {
 			this.onlineCount++;
 		}
 	}
