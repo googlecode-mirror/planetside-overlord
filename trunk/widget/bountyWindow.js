@@ -6,12 +6,13 @@ function BountyWindow (params) {
 	var self = this;
 	var tag = params.tag;
 	var wall_id = '#' + params.wall_id;
-	var window_id = '#bounty_window_' + BountyWindow.feedId;
+	var table_id = '#bounty_window_' + BountyWindow.feedId;
 	var eventArr = [];
 	var mContainer = {};
 	var pContainer = {};
 	var connection = null;
 	var updater = null;
+	var most_kills = 1;
 	
 	BountyWindow.feedId++;
 	
@@ -25,8 +26,10 @@ function BountyWindow (params) {
 	function _create(){
 		console.log("wall_id:",wall_id," for tag:",tag);
 		$(wall_id).append('<table border="1px"></table>');
-		$(wall_id + ' table:last').attr("id", window_id.substring(1));
-		$(window_id).append('<tr> <th>Name</th><th>Kills</th> </tr>');
+		$(wall_id + ' table:last').append('<thead></thead>');
+		$(wall_id + ' thead:last').append('<tr> <th>Name</th><th>Kills</th> </tr>');
+		$(wall_id + ' table:last').append('<tbody></tbody>');
+		$(wall_id + ' tbody:last').attr("id", table_id.substring(1));
 	}
 	
 	// Fetch all members in this outfit
@@ -34,7 +37,7 @@ function BountyWindow (params) {
 		mContainer = new MemContainer({
 			tag: tag, 
 			onComplete: function() {
-				console.log("BountyWindow mContainer;", mContainer.getMemIdArr() );
+				//console.log("BountyWindow mContainer;", mContainer.getMemIdArr() );
 				_webSockStart();
 			}
 		});
@@ -54,7 +57,7 @@ function BountyWindow (params) {
 		connection.onopen = function () {
 			//console.log("this. connection opened");
 			var kill_events = '{"service":"event","action":"subscribe","characters":[' + mContainer.getMemIdArr() + '],"eventNames":["Death"]}';
-			console.log("kill_events:", kill_events);
+			//console.log("kill_events:", kill_events);
 			connection.send(kill_events);
 			//self.updateStatus();
 		};
@@ -85,7 +88,7 @@ function BountyWindow (params) {
 	}
 	
 	function _handleEvent(msg){
-		console.log("_handleEvent( msg=",msg,")");
+		console.log("BountyWindow->_handleEvent() msg=",msg);
 		
 		var victim_id = msg.payload.character_id;
 		var attacker_id = msg.payload.attacker_character_id;
@@ -93,7 +96,9 @@ function BountyWindow (params) {
 		if( mContainer.indexOfId(victim_id) >= 0 ) {// if member is victim
 			console.log("MEMBER IS VICTIM!");
 			_handleKillEvent(attacker_id);
-			_updateTable(attacker_id);
+		} else {
+			console.log("MEMBER KICKS ASS!");
+			_handleMemberKillEvent(victim_id);
 		}
 	}
 	
@@ -114,18 +119,49 @@ function BountyWindow (params) {
 						pContainer.addById(id);
 						
 						// add Row To Table
-						$(window_id).append('<tr> </tr>');
-						$(window_id + ' tr:last').attr("id", row_id);
-						$(window_id + ' tr:last').append('<td>'+P_INFO.getNameById(id)+'</td>');
-						$(window_id + ' tr:last').append('<td>'+pContainer.getKillsById(id)+'</td>');
-						$(window_id + ' td:last').attr("id", row_kills_id);
-						//$(window_id).append('<tr> <td>Player</td><td>55</td> </tr>');
-						//$(window_id).append('<tr> <td>Player</td><td>55</td> </tr>');
+						$(table_id).append('<tr class="bounty_table_row"> </tr>');
+						$(table_id + ' tr:last').attr("id", row_id);
+						$(table_id + ' tr:last').append('<td>'+P_INFO.getNameById(id)+'</td>');
+						$(table_id + ' tr:last td:last').attr("class", 'bounty_name_cell');
+						$(table_id + ' tr:last').append('<td>'+pContainer.getKillsById(id)+'</td>');
+						$(table_id + ' tr:last td:last').attr("class", 'bounty_kills_cell');
+						$(table_id + ' td:last').attr("id", row_kills_id);
+						//$(table_id).append('<tr> <td>Player</td><td>55</td> </tr>');
+						//$(table_id).append('<tr> <td>Player</td><td>55</td> </tr>');
 						
 					} else {// existing player kill
 						pContainer.addById(id);
-						//_updateTable(id);
+						
+						
+						// Todo: Insertion sort instead of old way below
+						var enemy_kills = pContainer.getKillsById(id);
+						
+						$(table_id+' > tr').each(function(i, row) {
+							console.log("EACH i:",i );
+							console.log("EACH row:",row );
+							console.log("EACH row.find:",$(row).find('td.bounty_kills_cell').text() );
+							
+							var row_kills = $(row).find('td.bounty_kills_cell').text();
+							
+							if( enemy_kills >= row_kills ) {
+								console.log("INSERTED ENEMY WITH ",enemy_kills," kills. ");
+								$('#'+row_id).insertBefore(row);
+								$('#'+row_kills_id).html(enemy_kills);
+								return false;//break out of this loop
+							}
+							
+						});
+						$('#'+row_kills_id).html(enemy_kills);
+						
+						/* // old way that only puts highest at top, and the rest are scattered
+						if( pContainer.getKillsById(id) > most_kills ) {
+							most_kills = pContainer.getKillsById(id);
+							$('#'+row_id).prependTo(table_id);
+						} else {
+						
+						}
 						$('#'+row_kills_id).html(pContainer.getKillsById(id));
+						*/
 					}
 				
 					/*addEvent(
@@ -143,9 +179,21 @@ function BountyWindow (params) {
 		});
 	}
 	
-	function _updateTable(id) {
+	// called when an outfit member kills an enemy, 
+	// so remove him from bounty list if needed
+	function _handleMemberKillEvent(victim_id) {
+		if( pContainer.indexOfId(victim_id) >= 0 ) {// existing enemy
 		
-		// update the table for this player
+			var row_id = 'bounty_'+tag+"_"+victim_id;//todo: change tag to feedId for multiple bountys of same outfit
+			var row_kills_id = 'bounty_'+tag+"_kills_"+victim_id;//todo: change tag to feedId
+			
+			$('#'+row_kills_id).html(0);
+			pContainer.setKillsById(victim_id, 0);
+			$('#'+row_id).appendTo(table_id);
+			
+			console.log("REMOVE:",victim_id);
+			
+		}
 	}
 	
 	
