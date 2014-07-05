@@ -17,7 +17,7 @@ function PlayerContainer () {
 		} else {
 			throw "Item is missing parameters: " + item;
 		}
-		console.log("PCONT item:", item);
+		//console.log("PCONT item:", item);
 	}
 	
 	// PRIVILEDGED FUNCTIONS
@@ -41,33 +41,36 @@ function PlayerContainer () {
 				id: id,
 				kills: 1,
 			});
-			/*$.ajax({
-				type: "GET",
-				dataType: "jsonp",
-				url: 'http://census.soe.com/s:rch/get/ps2:v2/character/?character_id=' + id + '&c:show=name',
-				success: function(data){
-					name = data.character_list[0].name.first;
-					_add( {
-						id: id,
-						name: data.character_list[0].name.first,
-						name_lower: data.character_list[0].name.first_lower,
-					} );
-					print();
-				}
-			});*/
+
 		} else {
 			pArr[ind].kills++;
 		}
-		this.print();
+		//this.print();
+		this.printDebug();
 	}
 
 	this.print = function() {
 		console.log("PCONT arr:", pArr);
 	}
 
+	this.printDebug = function() {
+		console.log("PCONT arr:", pArr);
+		$('#pArr').html('');
+		
+		for( var i = 0; i < pArr.length; i++) {
+			$('#pArr').html( $('#pArr').html() + '<br>'+ JSON.stringify(pArr[i]) );
+			
+		}
+	}
+
 	this.getKillsById = function(id) {
 		var ind = this.indexOfId(id);
 		return pArr[ind].kills;
+	}
+
+	this.setKillsById = function(id, kills) {
+		var ind = this.indexOfId(id);
+		pArr[ind].kills = kills;
 	}
 
 	this.getKillsByIndex = function(ind) {

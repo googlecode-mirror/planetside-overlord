@@ -6,6 +6,8 @@
 <title>outfitSearch.html</title>
 
 <script type="text/javascript" language="Javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<!--<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" language="Javascript" src="/bootstrap-3.2.0-dist/bootstrap-3.2.0-dist/js/bootstrap.js"></script>-->
 <script src="utility/playerPedia.js"></script>
 <script src="utility/weaponPedia.js"></script>
 <script src="utility/vehiclePedia.js"></script>
@@ -194,7 +196,7 @@ function addPlayerFeed(player_name) {
 			var playerFeedTab = new ContentPane({
 				 title: "Players",
 				 //closable: true,
-				 content: '<div id="player_feed_wall"  style="min-height:400px;"></div>',
+				 content: '<div id="player_feed_wall"  style="min-height:400px;"><span id="bounty_feed_wall" class="window" style="min-height:400px;"></span><span id="pArr" class="window"></span></div>',
 				 onClose: function() {
 					PlayerWindow.closeAll();
 					return false;
@@ -215,7 +217,7 @@ function addPlayerFeed(player_name) {
 
 			var BountyTab = new ContentPane({
 				title: "Bounty",
-				content: '<div id="bounty_feed_wall" style="min-height:400px;"></div>',
+				content: '',
 				selected: true
 			});
 			tc.addChild(BountyTab);
