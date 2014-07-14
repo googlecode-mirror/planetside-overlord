@@ -64,7 +64,7 @@ OutfitFeed.prototype.webSockStart = function() {
 	this.connection.onmessage = function (e) {
 		var msg = jQuery.parseJSON( e.data );
 		if( msg.type != 'serviceStateChanged' ) {
-			console.log("msg:", msg);
+			//console.log("msg:", msg);
 		}
 		if( msg.service == 'event' && msg.type == 'serviceMessage' ) {
 			self.handleEvent( msg );

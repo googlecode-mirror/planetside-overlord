@@ -54,8 +54,8 @@ function PlayerContainer () {
 	}
 
 	this.printDebug = function() {
-		console.log("PCONT arr:", pArr);
-		$('#pArr').html('');
+		//console.log("PCONT arr:", pArr);
+		$('#pArr').html('count='+pArr.length);
 		
 		for( var i = 0; i < pArr.length; i++) {
 			$('#pArr').html( $('#pArr').html() + '<br>'+ JSON.stringify(pArr[i]) );
