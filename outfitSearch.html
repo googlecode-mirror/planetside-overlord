@@ -29,9 +29,10 @@
 var feed;
 var playerHistory;
 var tagsHistory;
+TIME = new Date();
 
 $(document).ready(function(){
-	//alert('');
+	//alert('Finish Bounty!! It doesnt sort correctly, when adding a tr before itself');
 	
 	P_INFO.myPrint();
 	WEP_INFO.myPrint();
@@ -196,7 +197,7 @@ function addPlayerFeed(player_name) {
 			var playerFeedTab = new ContentPane({
 				 title: "Players",
 				 //closable: true,
-				 content: '<div id="player_feed_wall"  style="min-height:400px;"><span id="bounty_feed_wall" class="window" style="min-height:400px;"></span><span id="pArr" class="window"></span></div>',
+				 content: '<div id="player_feed_wall"  style="min-height:400px;"><span id="bounty_feed_wall" class="window" style="min-height:400px;width:350px;"></span><span id="pArr" class="window"></span></div>',
 				 onClose: function() {
 					PlayerWindow.closeAll();
 					return false;
@@ -218,7 +219,7 @@ function addPlayerFeed(player_name) {
 			var BountyTab = new ContentPane({
 				title: "Bounty",
 				content: '',
-				selected: true
+				//selected: true
 			});
 			tc.addChild(BountyTab);
 /*
@@ -236,6 +237,7 @@ function addPlayerFeed(player_name) {
 */
 			tc.startup();
 			addBounty('AOD');
+			addOutfitFeed('AOD');
 			/*var count = 0;
 			var tempTab;
 			var addTab = function() {

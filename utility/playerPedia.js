@@ -52,7 +52,7 @@ var PlayerPedia = (function () {
 					dataType: "jsonp",
 					url: 'http://census.soe.com/s:rch/get/ps2:v2/character/?character_id=' + id + '&c:resolve=outfit_member_extended,currency,profile,world',
 					success: function(data){
-						console.log("P_INFO addById() ajaxL data:", data);
+						//console.log("P_INFO addById() ajaxL data:", data);
 						
 						if( data.character_list[0] != null ) {
 							
@@ -111,7 +111,7 @@ var PlayerPedia = (function () {
 
 		getOutfitAliasById: function(id) {
 			var ind = this.indexOfId(id);
-			console.log("P_INFO pArr[ind].outfit:", pArr[ind].outfit, ")");
+			//console.log("P_INFO pArr[ind].outfit:", pArr[ind].outfit, ")");
 			if( pArr[ind].outfit != null ){
 				return pArr[ind].outfit.alias;
 			} else {
