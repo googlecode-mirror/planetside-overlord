@@ -32,7 +32,7 @@ var tagsHistory;
 TIME = new Date();
 
 $(document).ready(function(){
-	//alert('Finish Bounty!! It doesnt sort correctly, when adding a tr before itself');
+	//alert('Add logout and login event for bounty. First, Set offline when logout.');
 	
 	P_INFO.myPrint();
 	WEP_INFO.myPrint();
@@ -236,6 +236,8 @@ function addPlayerFeed(player_name) {
 			tc.addChild(closablePane);
 */
 			tc.startup();
+			//addBounty('AOD');
+			//addOutfitFeed('AOD');
 			addBounty('AOD');
 			addOutfitFeed('AOD');
 			/*var count = 0;
