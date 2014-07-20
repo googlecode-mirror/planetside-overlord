@@ -13,6 +13,7 @@ function BountyWindow (params) {
 	var connection = null;
 	var updater = null;
 	var most_kills = 1;
+	var first_event = null;
 	
 	BountyWindow.feedId++;
 	
@@ -80,12 +81,29 @@ function BountyWindow (params) {
 
 		// Log kill_streams from the server
 		connection.onmessage = function (e) {
+			//console.log("e.timestamp:",e.timeStamp/1000000," e:",e);
 			var msg = jQuery.parseJSON( e.data );
 			if( msg.type != 'serviceStateChanged' ) {
 				console.log("msg:", msg, ' timestamp:', (msg.payload!=null && msg.payload.timestamp!=null?msg.payload.timestamp:null), ' time:', Math.ceil(Date.now()/1000) );
 				
 				if( msg.subscription != null ) {
-					$('#first_event').val(Math.ceil(Date.now()/1000));
+					if( msg.subscription.eventNames[0] == 'Death' && first_event == null) {
+						
+						first_event = new Date().getTime() / 1000;// seconds
+						var hours = parseInt( first_event / 3600 ) % 24;
+						hours = hours + 5;
+						var minutes = parseInt( first_event / 60 ) % 60;
+						var seconds = parseInt( first_event % 60 );
+
+						var result = (hours < 10 ? "0" + hours : hours)
+						+ ":" + (minutes < 10 ? "0" + minutes : minutes)
+						+ ':' + (seconds < 10 ? "0" + seconds : seconds);
+						
+						$('#first_event').val(result);
+						//$('#first_event').val(Math.ceil(Date.now()/1000));
+					} else if ( false ) {// do something for login/out events initial msg
+					
+					}
 				}
 			}
 			if( msg.service == 'event' && msg.type == 'serviceMessage' ) {
@@ -94,15 +112,68 @@ function BountyWindow (params) {
 		};/**/
 		
 		// check connection status
-		updater = setInterval( function(){
-			//self.updateStatus();
-			//self.updateTotalMembers();
-		},2000);
+		//updater = setInterval( function(){
+		
+		//},2000);
 
 	}
 	
 	function _handleEvent(msg){
-		//console.log("BountyWindow->_handleEvent() msg=",msg);
+		
+		switch (msg.payload.event_name) {
+			case 'Death':
+				_handleDeathEvent(msg);
+				break;
+				
+			case 'PlayerLogin':
+				_handleLoginEvent(msg);
+				break;
+				
+				
+			case 'PlayerLogout':
+				_handleLogoutEvent(msg);
+				break;
+				
+			default:
+				console.log("other event msg:",msg);
+				break;
+		
+		}
+	}
+	
+	function _handleLoginEvent(msg){
+		console.log("_handleLoginEvent() msg:", msg);
+		
+		var id_temp = msg.payload.character_id;
+		var ind = pContainer.indexOfId(id_temp)
+		
+		if( ind >= 0 ) {// logout is a murderer
+			console.log("murderer logged on");
+			$('#bounty_online_status_'+id_temp).html('<strong>online!</strong>');
+		} else {
+		
+			console.log("member logged on");
+		}
+		
+	}
+	
+	function _handleLogoutEvent(msg){
+		console.log("_handleLogoutEvent() msg:", msg, 'id', msg.payload.character_id);
+		
+		var id_temp = msg.payload.character_id;
+		var ind = pContainer.indexOfId(id_temp)
+		
+		if( ind >= 0 ) {// logout is a murderer
+			console.log("murderer logged out");
+			$('#bounty_online_status_'+id_temp).html('offline');
+		} else {
+		
+			console.log("member logged out");
+		}
+	}
+	
+	function _handleDeathEvent(msg){
+		//console.log("BountyWindow->_handleDeathEvent() msg=",msg);
 		
 		var victim_id = msg.payload.character_id;
 		var attacker_id = msg.payload.attacker_character_id;
@@ -112,7 +183,11 @@ function BountyWindow (params) {
 				console.log("MEMBER SUICIDE...");
 			} else {// member is victim to other outfit
 				console.log("MEMBER IS VICTIM!");
-				_handleKillEvent(attacker_id);
+				var player_index = pContainer.indexOfId(attacker_id);
+				if( player_index >= 0 ) {
+					
+				}
+				_handleMemberVictimEvent(attacker_id, player_index);
 			}
 		} else {
 			console.log("MEMBER KICKS ASS!");
@@ -120,16 +195,14 @@ function BountyWindow (params) {
 		}
 	}
 	
-	function _handleKillEvent(id) {
+	function _handleMemberVictimEvent(id, p_index) {
 		
-		
-
 		// store player in P_INFO
 		P_INFO.addById(id, function() {// onComplete
 			//WEP_INFO.addById(msg.payload.attacker_weapon_id, function() {// onComplete
 				//VEH_INFO.addById(msg.payload.attacker_vehicle_id, function() {// onComplete
 				
-					// do stuff here
+					// Generate ids
 					var row_id = 'bounty_'+tag+"_"+id;//todo: change tag to feedId for multiple bountys of same outfit
 					var row_kills_id = 'bounty_'+tag+"_kills_"+id;//todo: change tag to feedId
 					
@@ -137,6 +210,7 @@ function BountyWindow (params) {
 					
 					if( pContainer.indexOfId(id) < 0 ) {// new player
 						pContainer.addById(id);
+						_subscribeToLogin(id);
 						
 						// add Row To Table
 						$(table_id).append('<tr class="bounty_table_row"> </tr>');
@@ -147,6 +221,8 @@ function BountyWindow (params) {
 						$(table_id + ' tr:last td:last').attr("class", 'bounty_kills_cell');
 						$(table_id + ' td:last').attr("id", row_kills_id);
 						$(table_id + ' tr:last').append('<td>'+id+'</td>');
+						$(table_id + ' tr:last').append('<td><strong>online</strong></td>');
+						$(table_id + ' tr:last td:last').attr("id", 'bounty_online_status_'+id);
 						//$(table_id).append('<tr> <td>Player</td><td>55</td> </tr>');
 						//$(table_id).append('<tr> <td>Player</td><td>55</td> </tr>');
 						
@@ -192,15 +268,6 @@ function BountyWindow (params) {
 							$('#'+row_kills_id).html(enemy_kills);
 						}
 						
-						/* // old way that only puts highest at top, and the rest are scattered
-						if( pContainer.getKillsById(id) > most_kills ) {
-							most_kills = pContainer.getKillsById(id);
-							$('#'+row_id).prependTo(table_id);
-						} else {
-						
-						}
-						$('#'+row_kills_id).html(pContainer.getKillsById(id));
-						*/
 					}
 				
 					/*addEvent(
@@ -240,6 +307,13 @@ function BountyWindow (params) {
 		
 		// count table rows
 		$('#bounty_debug2').html('count='+$(table_id+' tr').length);
+	}
+	
+	// Subscribe to member-murdering player for login/logout
+	function _subscribeToLogin(player_id) {
+		login_events = '{"service":"event","action":"subscribe","characters":["'+player_id+'"],"eventNames":["PlayerLogin","PlayerLogout"]}'
+		
+		connection.send(login_events);
 	}
 	
 	
