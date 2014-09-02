@@ -1,0 +1,58 @@
+/******************************************
+   AUTHOR:  			Richard Howell 
+   WEBSITE:   			http://www.rchhome.com/
+
+ *****************************************/ 
+ 
+/********************************************
+   HTML ELEMENTS
+********************************************/ 
+
+.window {
+	border:0px solid;
+	/*color: #33CC33;*/
+	margin: 11px;
+	padding: 5;
+	width: 220px;
+	float: left;
+	display: inline;
+}
+
+.outfit_feed_wall, .player_feed_wall{
+	background: #6A6A6A;
+}
+
+.window {
+}
+
+.window.TR {
+	border:5px solid #FF0000;/*#A0080D;red*/
+	margin: 10px;
+}
+
+.window.VS {
+	border:5px solid #56307C;/*purple*/
+	margin: 10px;
+}
+
+.window.NC {
+	border:5px solid #0000FF;/*blue*/
+	margin: 10px;
+}
+
+.window.offline {
+	border:1px solid #6A6A6A;/*grey*/
+	margin: 10px;
+}
+
+window {
+  margin: 5px 0;
+  border-radius:10px;
+  padding: 10px;
+  text-align: left;
+  display: block;
+  overflow: auto;  
+  font: 500 1em/1.5em 'Lucida Console', 'courier new', monospace;
+  /* white-space: pre; */
+  background: #111;    
+}

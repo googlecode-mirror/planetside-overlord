@@ -1,14 +1,4 @@
-/********************************************
-   AUTHOR:  			Erwin Aligam 
-   WEBSITE:   			http://www.styleshout.com/
-	TEMPLATE NAME: 	ablaze
-   TEMPLATE CODE: 	S-0009
-   VERSION:          2.1	          	
- *******************************************/ 
- 
-/********************************************
-   HTML ELEMENTS
-********************************************/ 
+/*********** html **************/ 
 
 /* top elements 
 * { 
@@ -41,6 +31,9 @@ body {
 	background: #6A6A6A;
 }
 
+.window {
+}
+
 .window.TR {
 	border:5px solid #FF0000;/*#A0080D;red*/
 	margin: 10px;
@@ -63,6 +56,7 @@ body {
 
 window {
   margin: 5px 0;
+  border-radius:10px;
   padding: 10px;
   text-align: left;
   display: block;
@@ -225,9 +219,7 @@ button {
 	vertical-align: top;
 }
 
-/***********************
-	  LAYOUT
-************************/
+/******************** LAYOUT *********************/
 
 #header-content, #footer-content, #content {
 	width: 100%;	

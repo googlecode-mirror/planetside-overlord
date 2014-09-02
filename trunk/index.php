@@ -197,9 +197,10 @@ function addPlayerFeed(player_name) {
 			}, "tab_container");
 
 			var playerFeedTab = new ContentPane({
-				 title: "Players",
+				 title: "Feeds",
 				 //closable: true,
-				 content: '<div id="player_feed_wall"  style="min-height:400px;"><span id="bounty_feed_wall" class="window" style="min-height:400px;width:350px;"></span><span id="pArr" class="window"></span></div>',
+				 //content: '<div id="player_feed_wall"  style="min-height:400px;"><span id="bounty_feed_wall" class="window" style="min-height:400px;width:350px;"></span><span id="pArr" class="window"></span></div>',
+				 content: '<div id="player_feed_wall"  style="min-height:400px;"></div>',
 				 onClose: function() {
 					PlayerWindow.closeAll();
 					return false;
@@ -207,7 +208,7 @@ function addPlayerFeed(player_name) {
 			});
 			tc.addChild(playerFeedTab);
 
-			var OutfitFeedTab = new ContentPane({
+			/*var OutfitFeedTab = new ContentPane({
 				 title: "Outfits",
 				 //closable: true,
 				 content: '<div id="outfit_feed_wall" style="min-height:400px;"></div>',
@@ -224,6 +225,7 @@ function addPlayerFeed(player_name) {
 				//selected: true
 			});
 			tc.addChild(BountyTab);
+			*/
 /*
 			var closablePane = new ContentPane({
 				title:"Close Me",
@@ -240,8 +242,9 @@ function addPlayerFeed(player_name) {
 			tc.startup();
 			//addBounty('AOD');
 			//addOutfitFeed('AOD');
-			addBounty('merc');
-			addOutfitFeed('merc');
+			//addBounty('merc');
+			//addOutfitFeed('merc');
+			addOutfitFeed(<?php echo "'merc'"; ?>);
 			
 			/*var widget = new ps2.widget.PlyrWidget({
 				player_id: '5366546354656',
@@ -276,29 +279,29 @@ function addPlayerFeed(player_name) {
 <div id ="header-content">
 	<div id="outfit_tag_add">
 		<span class="header-input-label">Outfit Tag:</span><input id='outfit_text_input' type="text" style="width:4em" maxlength="4">
-		<button id="outfit_add">Add</button>
-		<span id="tHistory_list"></span>
+		<button id="outfit_add">Add</button>Enter an outfit tag and click 'Add' to show their kill feed.
+	</div>
+	<div>
+		<span id="tHistory_list">Outfit History:</span>
 	</div>
 	<div id="player_name_add">
 		<span class="header-input-label">Player:</span><input id='player_text_input' type="text" style="width:8em">
-		<button id="player_add">Add</button>
-		<span id="pHistory_list"></span>
+		<button id="player_add">Add</button>Enter an player name and click 'Add' to show their kill feed.
+	</div>
+	<div>
+		<div id="pHistory_list" >Player History:</div>
 	</div>
 	
 	<hr>
+	<!-- Extra for devel 
 	<button id="init_merc_feed">MERC</button>
 	<button id="button2">Add 5</button>
 	<button id="init_ratch_feed">ratch</button><br />
 	<button id="button3">Add All Tags</button>
 	<button id="button4">Add All Players</button>
 	<button id="button5">button5 tagsHistory.addButton()</button><br />
-	<hr>
-</div><!--
-<div id='first_feed' style="background-color:#EDEDED; ">
-<div>Status:<input type="text" id="con_status" style="width:7em" readonly><br /></div>
-<div>Online:<input type="text" id="member_count" style="width:7em" readonly><br /></div>
-<div>K/D:<input type="text" id="kd_ratio" style="width:5em" readonly><br /></div>
-</div>-->
+	<hr>-->
+</div>
 
 <div id='tab_container' ">
 
@@ -307,30 +310,11 @@ function addPlayerFeed(player_name) {
 	<div id='video_wall' style="background-color:#EDEDED; ">
 
 	<link rel="stylesheet" href="css/outfitSearch.css" type="text/css" />
-	 <!--<iframe frameborder="0" scrolling="no" src="http://twitch.tv/hondadude7/chat?popout=" height="500" width="250"></iframe>-->
 	</div>
 	
 </div>
 
 
-<!--
-<div id='video_wall2' style="background-color:#EDEDED; ">
-<object type="application/x-shockwave-flash" height="170"  width="250" id="live_embed_player_flash" data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=hondadude7" bgcolor="#000000"><param name="allowFullScreen" value="true" /><param name="allowScriptAccess" value="always" /><param name="allowNetworking" value="all" /><param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" /><param name="flashvars" value="hostname=www.twitch.tv&channel=hondadude7&auto_play=true&start_volume=25" /></object>
-
-<object type="application/x-shockwave-flash" height="170" width="250" id="live_embed_player_flash" data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=ghstmarauder" bgcolor="#000000"><param name="allowFullScreen" value="false" /><param name="allowScriptAccess" value="always" /><param name="allowNetworking" value="all" /><param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" /><param name="flashvars" value="hostname=www.twitch.tv&channel=ghstmarauder&auto_play=true&start_volume=25" /></object>
-
-<object type="application/x-shockwave-flash" height="170" width="250" id="live_embed_player_flash" data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=gerpwns" bgcolor="#000000"><param name="allowFullScreen" value="true" /><param name="allowScriptAccess" value="always" /><param name="allowNetworking" value="all" /><param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" /><param name="flashvars" value="hostname=www.twitch.tv&channel=gerpwns&auto_play=true&start_volume=25" /></object>
-
-<object type="application/x-shockwave-flash" height="170" width="250" id="live_embed_player_flash" data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=roughtr" bgcolor="#000000"><param name="allowFullScreen" value="true" /><param name="allowScriptAccess" value="always" /><param name="allowNetworking" value="all" /><param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" /><param name="flashvars" value="hostname=www.twitch.tv&channel=roughtr&auto_play=true&start_volume=25" /></object>
--->
-
-
-<!--<a href="http://www.twitch.tv/hondadude7" style="padding:2px 0px 4px; display:block; width:345px; font-weight:normal; font-size:10px;text-decoration:underline; text-align:center;">Watch live video from HondaDude7 on www.twitch.tv</a>
-</div>-->
-
-<!--<button id="button4">button4</button>
-<button id="button5">button5</button>
- -->
  
 
 
