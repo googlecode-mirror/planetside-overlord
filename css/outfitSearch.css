@@ -8,13 +8,34 @@ body {
 	margin: 0; 	padding: 0;
 	font: normal .70em/1.5em Tahoma, 'Trebuchet MS', sans-serif;
 	color: #6A6A6A;
-	text-align: center;
-	background: #000;
+	/*text-align: center;*/
+	background: #333333;
 }
 
 .header-input-label {
 	font: bold 1.3em 'Trebuchet MS', Arial, Sans-serif;
 	color: #A0080D;
+}
+
+#feed_main_header {
+	background-color: #111111;
+    height: 100px;
+}
+#feed_main_debug {
+	background-color: #196600;
+}
+#feed_main_footer {
+	background-color: #111111;
+    height: 150px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+	text-align: center;
+}
+#feed_main_body {
+	//background: #333333;
+    height: 100%;
+    margin-bottom: 30px;
 }
 
 .window {
@@ -66,7 +87,7 @@ window {
   background: #111;    
 }
 
-/* links */
+/************** OTHER CSS ************************* */
 a {
 	color: #F88F26; 
 	background-color: inherit;

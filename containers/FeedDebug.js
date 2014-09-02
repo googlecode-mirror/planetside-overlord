@@ -6,7 +6,7 @@ require([
 	"dijit/layout/ContentPane",
 	"dijit/form/Button", 
 	"dojo/dom",
-	"dojo/text!./widget/PlyrWindow.html",
+	"dojo/text!./containers/FeedDebug.html",
 ], function(
 	Source, 
 	_Widget, 
@@ -18,19 +18,17 @@ require([
 	template
 ){
 		
-	return dojo.declare("ps2.widget.PlyrWindow", [ dijit._Widget, dijit._Templated ], {
+	return dojo.declare("ps2.containers.FeedDebug", [ dijit._Widget, dijit._Templated ], {
 
 		templateString: template, //dojo.cache("example", "templates/SomeWidget.html"),
 		
 		//  your custom code goes here
 		constructor: function (params) {
-			console.log("PlyrWindow constructor params:", params);
-			console.log("PlyrWindow baseClass :", this.baseClass);
+			console.log("FeedDebug constructor params:", params);
 		},
 		
 		startup: function () {
-			console.log("PlyrWindow startup ");
-			console.log("PlyrWindow baseClass :", this.baseClass);
+			console.log("FeedDebug startup ");
 		
 		},
 		

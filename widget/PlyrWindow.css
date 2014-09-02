@@ -22,7 +22,8 @@
 	background: #6A6A6A;
 }
 
-.window {
+.PlyrWindow {
+	border:1px solid #6A6A6A;/*grey*/
 }
 
 .window.TR {

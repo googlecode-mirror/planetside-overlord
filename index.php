@@ -3,7 +3,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>outfitSearch.html</title>
+<title>PS2 Kill</title>
 
 <script type="text/javascript" language="Javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 <!--<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
@@ -24,6 +24,7 @@
 
 <!-- DOJO CSS -->
 <link rel="stylesheet" href="../dojoprojects/dijit/themes/claro/claro.css" />
+<link rel="stylesheet" href="css/outfitSearch.css" type="text/css" />
 
 <script>
 var feed;
@@ -178,20 +179,51 @@ function addPlayerFeed(player_name) {
 	<script>
 		<!-- Tab Container -->
 		require([
+			"ps2/containers/FeedHeader",
+			"ps2/containers/FeedDebug",
+			"ps2/containers/FeedBody",
+			"ps2/containers/FeedFooter",
 			"ps2/widget/PlyrWindow",
+			
 			"dijit/layout/TabContainer", 
 			"dijit/layout/ContentPane",
 			"dijit/form/Button", 
 			"dojo/dom", 
 			"dojo/domReady!"
 		], function(
+			FeedHeader, 
+			FeedDebug, 
+			FeedBody, 
+			FeedFooter, 
 			PlyrWindow, 
+			
 			TabContainer, 
 			ContentPane, 
 			Button, 
 			dom
 		){
-			var tc = new TabContainer({
+		
+			var main_header = new ps2.containers.FeedHeader({
+			
+			}, "feed_main_header");
+			main_header.startup();
+		
+			var main_debug = new ps2.containers.FeedDebug({
+			
+			}, "feed_main_debug");
+			main_debug.startup();
+		
+			var main_body = new ps2.containers.FeedBody({
+			
+			}, "feed_main_body");
+			main_body.startup();
+		
+			var main_footer = new ps2.containers.FeedFooter({
+			
+			}, "feed_main_footer");
+			main_footer.startup();
+			
+			/*var tc = new TabContainer({
 				style: "height: 100%; width: 100%;",
 				doLayout:false
 			}, "tab_container");
@@ -200,13 +232,13 @@ function addPlayerFeed(player_name) {
 				 title: "Feeds",
 				 //closable: true,
 				 //content: '<div id="player_feed_wall"  style="min-height:400px;"><span id="bounty_feed_wall" class="window" style="min-height:400px;width:350px;"></span><span id="pArr" class="window"></span></div>',
-				 content: '<div id="player_feed_wall"  style="min-height:400px;"></div>',
+				 content: '<div id="player_feed_wall" class="" dojoType="dojo.dnd.Source"  style="min-height:400px;"></div>',
 				 onClose: function() {
 					PlayerWindow.closeAll();
 					return false;
 				 }
 			});
-			tc.addChild(playerFeedTab);
+			tc.addChild(playerFeedTab);*/
 
 			/*var OutfitFeedTab = new ContentPane({
 				 title: "Outfits",
@@ -239,14 +271,17 @@ function addPlayerFeed(player_name) {
 			});
 			tc.addChild(closablePane);
 */
-			tc.startup();
+			//tc.startup();
+			
+			
+			
 			//addBounty('AOD');
 			//addOutfitFeed('AOD');
 			//addBounty('merc');
 			//addOutfitFeed('merc');
-			addOutfitFeed(<?php echo "'merc'"; ?>);
+			//addOutfitFeed(<?php //echo "'merc'"; ?>);
 			
-			/*var widget = new ps2.widget.PlyrWidget({
+			/*var widget = new ps2.widget.PlyrWindow({
 				player_id: '5366546354656',
 			}, dojo.byId("player_feed_wall") );
 			widget.startup();*/
@@ -275,7 +310,14 @@ function addPlayerFeed(player_name) {
 			*/
 		});
 	</script>
+	
+	<!-- Feed Main Body -->
+	<div id="feed_main_header"></div>
+	<div id="feed_main_debug"></div>
+	<div id="feed_main_body"></div>
+	<div id="feed_main_footer"></div>
 
+<!--
 <div id ="header-content">
 	<div id="outfit_tag_add">
 		<span class="header-input-label">Outfit Tag:</span><input id='outfit_text_input' type="text" style="width:4em" maxlength="4">
@@ -293,19 +335,18 @@ function addPlayerFeed(player_name) {
 	</div>
 	
 	<hr>
-	<!-- Extra for devel 
+	
 	<button id="init_merc_feed">MERC</button>
 	<button id="button2">Add 5</button>
 	<button id="init_ratch_feed">ratch</button><br />
 	<button id="button3">Add All Tags</button>
 	<button id="button4">Add All Players</button>
 	<button id="button5">button5 tagsHistory.addButton()</button><br />
-	<hr>-->
+	<hr>
 </div>
 
-<div id='tab_container' ">
+<div id='tab_container' >
 
-	<!--<div id='feed_wall' style="background-color:#EDEDED; "></div>-->
 
 	<div id='video_wall' style="background-color:#EDEDED; ">
 
@@ -314,7 +355,7 @@ function addPlayerFeed(player_name) {
 	
 </div>
 
-
+-->
  
 
 
