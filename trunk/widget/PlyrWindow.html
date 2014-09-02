@@ -1,3 +1,34 @@
-<div class="PlyrWindow" data-dojo-attach-point="focusNode" >
-    <span data-dojo-attach-point="containerNode">PlyrWidget</span>
+<div class="PlyrWindow dojoDndItem" data-dojo-attach-point="main_div" >
+    <div data-dojo-attach-point="containerNode">PlyrWidget</div>
+	
+	<span id="feed_0_window" class="window TR">
+		<span id="feed_0_label">[MERC]
+		</span>
+		
+		<button id="feed_0_close" class="window_class" style="float:right;">X</button>
+		
+		<div>
+			Status:<input id="feed_status" style="width:7em" readonly="">
+		</div>
+		
+		<div>
+			Online:<input id="feed_online" style="width:7em" readonly="">
+		</div>
+		
+		<span>
+			K/D:<input id="feed_kd" style="width:3em" readonly="">
+		</span>
+		
+		<span>
+			K:<input id="feed_kills" style="width:3em" readonly="">
+		</span>
+		
+		<span>
+			D:<input id="feed_deaths" style="width:3em" readonly="">
+		</span>
+		
+		<div >
+			<table id="feed_queue"></table>
+		</div>
+	</span>
 </div>
