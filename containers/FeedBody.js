@@ -1,5 +1,6 @@
-require([
+define([
 	"ps2/widget/PlyrWindow",
+	"ps2/widget/PlyrWinMin",
 	
 	"dojo/dnd/Source", 
 	"dijit/_Widget", 
@@ -8,9 +9,10 @@ require([
 	"dijit/layout/ContentPane",
 	"dijit/form/Button", 
 	"dojo/dom",
-	"dojo/text!./containers/FeedBody.html",
+	"dojo/text!./FeedBody.html",
 ], function(
 	PlyrWindow,
+	PlyrWinMin,
 	
 	Source, 
 	_Widget, 
@@ -43,11 +45,8 @@ return dojo.declare("ps2.containers.FeedBody", [ dijit._Widget, dijit._Templated
 			 title: "Feeds",
 			 //closable: true,
 			 //content: '<div id="player_feed_wall"  style="min-height:400px;"><span id="bounty_feed_wall" class="window" style="min-height:400px;width:350px;"></span><span id="pArr" class="window"></span></div>',
-			 content: '<div id="player_feed_wall" class="" dojoType="dojo.dnd.Source"  style="min-height:400px;"></div>',
-			 onClose: function() {
-				PlayerWindow.closeAll();
-				return false;
-			 }
+			 content: '<div id="player_feed_wall" class=""  style="height:400px;">feeds</div>',
+			 
 		});
 		tc.addChild(playerFeedTab);
 
@@ -69,6 +68,20 @@ return dojo.declare("ps2.containers.FeedBody", [ dijit._Widget, dijit._Templated
 			player_id: '5366546354656',
 		}, dojo.byId("player_feed_wall") );
 		widget.startup();*/
+	
+		this.addPlyr('ratch');
+	},
+	
+	addPlyr: function (pname) {
+		console.log("FeedBody addPlyr ");
+		
+		// create a dom div for this widget
+		var div = dojo.create("div", null, dojo.byId("player_feed_wall"), "first");
+		
+		var plyr = new PlyrWinMin({
+			player_id: '5366546354656',
+		}, div );
+		plyr.startup();
 	
 	},
 	

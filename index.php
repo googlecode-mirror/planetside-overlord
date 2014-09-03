@@ -25,6 +25,7 @@
 <!-- DOJO CSS -->
 <link rel="stylesheet" href="../dojoprojects/dijit/themes/claro/claro.css" />
 <link rel="stylesheet" href="css/outfitSearch.css" type="text/css" />
+<link rel="stylesheet" href="widget/PlyrWinMin.css" type="text/css" />
 
 <script>
 var feed;
@@ -162,12 +163,12 @@ function addPlayerFeed(player_name) {
             // package so we can load Dojo from the CDN whilst still
             // being able to load local modules
             async: true,
-			baseUrl: '../dojoprojects/',
+			//baseUrl: '../dojoprojects/',
             packages: [
-				'dojo',
+				/*'dojo',
 				'dijit',
-				'dojox',
-				{ name: 'ps2', location: "../ps2"},
+				'dojox',*/
+				{ name: 'ps2', location: "../../ps2"},
 				'demo'
             ]
         };
@@ -203,22 +204,23 @@ function addPlayerFeed(player_name) {
 			dom
 		){
 		
-			var main_header = new ps2.containers.FeedHeader({
+		
+			var main_header = new FeedHeader({
 			
 			}, "feed_main_header");
 			main_header.startup();
 		
-			var main_debug = new ps2.containers.FeedDebug({
+			var main_debug = new FeedDebug({
 			
 			}, "feed_main_debug");
 			main_debug.startup();
 		
-			var main_body = new ps2.containers.FeedBody({
+			var main_body = new FeedBody({
 			
 			}, "feed_main_body");
 			main_body.startup();
 		
-			var main_footer = new ps2.containers.FeedFooter({
+			var main_footer = new FeedFooter({
 			
 			}, "feed_main_footer");
 			main_footer.startup();

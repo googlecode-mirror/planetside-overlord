@@ -1,4 +1,4 @@
-require([
+define([
 	"dojo/dnd/Source", 
 	"dijit/_Widget", 
 	"dijit/_Templated", 
@@ -6,7 +6,7 @@ require([
 	"dijit/layout/ContentPane",
 	"dijit/form/Button", 
 	"dojo/dom",
-	"dojo/text!./containers/FeedFooter.html",
+	"dojo/text!./FeedFooter.html",
 ], function(
 	Source, 
 	_Widget, 
