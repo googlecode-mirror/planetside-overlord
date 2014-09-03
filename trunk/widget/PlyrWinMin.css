@@ -1,0 +1,52 @@
+/******************************************
+   AUTHOR:  			Richard Howell 
+   WEBSITE:   			http://www.rchhome.com/
+
+ *****************************************/ 
+ 
+/********************************************
+   HTML ELEMENTS
+********************************************/ 
+
+.PlyrWinMin {
+	background-color: #33CC33;/**/
+	margin: 0px 5px 5px 0px;
+	padding: 5px;
+	height: 100px;
+	width: 250px;
+	float: left;
+	display: inline;
+}
+
+.PlyrWinMin .d_window {
+	background: #999999;
+}
+
+.outfit_feed_wall, .player_feed_wall{
+	background: #6A6A6A;
+}
+
+.PlyrWindow {
+	border:1px solid #6A6A6A;/*grey*/
+}
+
+.window.TR {
+	border:5px solid #FF0000;/*#A0080D;red*/
+	margin: 10px;
+}
+
+.window.VS {
+	border:5px solid #56307C;/*purple*/
+	margin: 10px;
+}
+
+.window.NC {
+	border:5px solid #0000FF;/*blue*/
+	margin: 10px;
+}
+
+.window.offline {
+	border:1px solid #6A6A6A;/*grey*/
+	margin: 10px;
+}
+
