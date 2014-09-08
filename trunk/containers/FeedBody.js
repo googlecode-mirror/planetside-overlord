@@ -70,16 +70,17 @@ return dojo.declare("ps2.containers.FeedBody", [ dijit._Widget, dijit._Templated
 		widget.startup();*/
 	
 		this.addPlyr('ratch');
+		this.addPlyr('Okamiba');
 	},
 	
-	addPlyr: function (pname) {
+	addPlyr: function (name) {
 		console.log("FeedBody addPlyr ");
 		
 		// create a dom div for this widget
 		var div = dojo.create("div", null, dojo.byId("player_feed_wall"), "first");
 		
 		var plyr = new PlyrWinMin({
-			player_id: '5366546354656',
+			player_name: name.toLowerCase(),
 		}, div );
 		plyr.startup();
 	

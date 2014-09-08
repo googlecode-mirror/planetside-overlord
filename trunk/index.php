@@ -53,7 +53,7 @@ $(document).ready(function(){
 		onClick: function(name) {
 			addOutfitFeed( name );
 		}
-	});/**/
+	});
 	
 	$('#init_merc_feed').click( function() {
 		feed = addOutfitFeed('merc');
@@ -168,14 +168,16 @@ function addPlayerFeed(player_name) {
 				/*'dojo',
 				'dijit',
 				'dojox',*/
-				{ name: 'ps2', location: "../../ps2"},
-				'demo'
+				//{ name: 'ps2', location: "../../ps2"},
+				{ name: 'ps2', location: "/ps2"}//,
+				//'demo'
             ]
         };
     </script>
      <!--load Dojo -->
     <script src="../dojoprojects/dojo/dojo.js"></script>
-	<!--<script src="//ajax.googleapis.com/ajax/libs/dojo/1.9.3/dojo/dojo.js"></script>-->
+	<!--<script data-dojo-config="async: true" src="//ajax.googleapis.com/ajax/libs/dojo/1.9.3/dojo/dojo.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/dojo/1.8.5/dojo/dojo.js" data-dojo-config="async: true" ></script>-->
 	
 	<script>
 		<!-- Tab Container -->
@@ -200,10 +202,11 @@ function addPlayerFeed(player_name) {
 			
 			TabContainer, 
 			ContentPane, 
-			Button, 
+			Button,
 			dom
 		){
 		
+			dojo.byId('asdf');
 		
 			var main_header = new FeedHeader({
 			
@@ -224,6 +227,7 @@ function addPlayerFeed(player_name) {
 			
 			}, "feed_main_footer");
 			main_footer.startup();
+			
 			
 			/*var tc = new TabContainer({
 				style: "height: 100%; width: 100%;",
