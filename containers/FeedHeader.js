@@ -2,9 +2,9 @@ define([
 	"dojo/dnd/Source", 
 	"dijit/_Widget", 
 	"dijit/_Templated", 
-	"dijit/layout/TabContainer", 
+	"dijit/layout/TabContainer",
 	"dijit/layout/ContentPane",
-	"dijit/form/Button", 
+	"dijit/form/Button",
 	"dojo/dom",
 	"dojo/text!./FeedHeader.html",
 ], function(
@@ -18,7 +18,7 @@ define([
 	template
 ){
 		
-	return dojo.declare("ps2.containers.FeedHeader", [ dijit._Widget, dijit._Templated ], {
+	return dojo.declare("ps2.containers.FeedHeader", [ _Widget, _Templated ], {
 
 		templateString: template, //dojo.cache("example", "templates/SomeWidget.html"),
 		

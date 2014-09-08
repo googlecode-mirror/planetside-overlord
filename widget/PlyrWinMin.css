@@ -9,7 +9,8 @@
 ********************************************/ 
 
 .PlyrWinMin {
-	background-color: #33CC33;/**/
+	background-color: #888888;/**/
+	border-radius: 5px;
 	margin: 0px 5px 5px 0px;
 	padding: 5px;
 	height: 100px;
@@ -18,35 +19,78 @@
 	display: inline;
 }
 
-.PlyrWinMin .d_window {
-	background: #999999;
+.PlyrWinMinBody {
+	display: none;
 }
 
-.outfit_feed_wall, .player_feed_wall{
-	background: #6A6A6A;
+.PlyrWinMin .p_header {
+	background-color: #AAAAAA;/**/
+	padding: 0px 0px 0px 0px;
+	width: 75%;
+	height: 25px;
 }
 
-.PlyrWindow {
-	border:1px solid #6A6A6A;/*grey*/
+.PlyrWinMin .p_name {
+	background-color: #FFFFFF;/**/
+	width: 100px;
+	height: 25px;
+	padding: 0px 5px;
+	float: left;
 }
 
-.window.TR {
-	border:5px solid #FF0000;/*#A0080D;red*/
-	margin: 10px;
+.PlyrWinMin .p_br {
+	background-color: #FFFFFF;/**/
+	width: 40px;
+	height: 25px;
+	padding: 0px 5px;
+	float: left;
+	margin: 0px 5px 0px 5px;
 }
 
-.window.VS {
-	border:5px solid #56307C;/*purple*/
-	margin: 10px;
+.PlyrWinMin .p_face {
+	background-color: #265CFF;
+	width: 55px;
+	height: 55px;
+	padding: 0px 0px;
+	border: 0px;
+	float: right;
+	margin: 0px 0px 0px 0px;
+	text-align: center;
+    vertical-align: top; /* here */
 }
 
-.window.NC {
-	border:5px solid #0000FF;/*blue*/
-	margin: 10px;
+/*.PlyrWinMin .p_close {
+	background-color: #FFFFFF;
+	width: 25px;
+	height: 25px;
+	padding: 0px 0px;
+	border: 0px;
+	float: right;
+	margin: 0px 0px 0px 0px;
+}*/
+
+.PlyrWinMin .p_que {
+	background-color: #AAAAAA;/**/
+	width: 75%;
+	height: 20px;
+	padding: 2.5px 0px 0px 0px;
+	margin: 5px 0px 0px 0px;
 }
 
-.window.offline {
-	border:1px solid #6A6A6A;/*grey*/
-	margin: 10px;
+.PlyrWinMin .p_que .p_que_k, .p_que_d {
+	width: 20px;
+	height: 17.5px;
+	padding: 0px 0px;
+	margin: 0px 0px 0px 2.5px;
+	float: left;
+	text-align: center;
+	color: #FFFFFF;
 }
 
+.PlyrWinMin .p_que .p_que_k {
+	background-color: #00B300;
+}
+
+.PlyrWinMin .p_que .p_que_d {
+	background-color: #D90000;
+}
