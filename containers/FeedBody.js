@@ -2,6 +2,7 @@ define([
 	"ps2/widget/PlyrWindow",
 	"ps2/widget/PlyrWinMin",
 	
+	"dojo/io/script", 
 	"dojo/dnd/Source", 
 	"dijit/_Widget", 
 	"dijit/_Templated", 
@@ -14,6 +15,7 @@ define([
 	PlyrWindow,
 	PlyrWinMin,
 	
+	Script, 
 	Source, 
 	_Widget, 
 	_Templated, 
@@ -69,20 +71,78 @@ return dojo.declare("ps2.containers.FeedBody", [ dijit._Widget, dijit._Templated
 		}, dojo.byId("player_feed_wall") );
 		widget.startup();*/
 	
-		this.addPlyr('ratch');
-		this.addPlyr('Okamiba');
+		//this.addPlyr('ratch');
+		//this.addPlyr('Okamiba');
+		this.addOutfit('aod');
 	},
 	
-	addPlyr: function (name) {
-		console.log("FeedBody addPlyr ");
+	addOutfit: function (tag) {
+		var self = this;
+		console.log("FeedBody addOutfit:", tag);
+		
+		var getOutfit = Script.get({
+			url: 'https://census.soe.com/s:rch/get/ps2:v2/outfit/'
+				+"?alias_lower="+tag.toLowerCase()
+				+"&c:resolve=member_character(name)"
+				+"&c:resolve=member_online_status"
+				+"&c:resolve=leader",
+			handleAs: 'text',
+			content: {
+				/*"alias_lower" : tag,
+				"c:resolve": "member_character(name)",
+				"c:resolve": "member_online_status",
+				"c:resolve": "leader"*/
+			},
+			callbackParamName: "callback",
+			load: function (data, ioargs) {
+				//console.log("load addOutfit data:", data, 'io:', ioargs);
+			}
+		}).then(function (data, ioargs) {
+			console.log("addOutfit data:", data);
+			if( data.outfit_list[0] != null ) {
+				self.addMultiplePlyrs(data.outfit_list[0].members);
+			} else {
+				console.warn("data.outfit_list[0] is null!");
+			}
+		});
+	
+	},
+	
+	// params can contain player_id or player_name or both
+	addPlyr: function (params) {
+		console.log("FeedBody addPlyr:", params);
 		
 		// create a dom div for this widget
-		var div = dojo.create("div", null, dojo.byId("player_feed_wall"), "first");
+		//var div = dojo.create("div", null, dojo.byId("player_feed_wall"), "first");
 		
-		var plyr = new PlyrWinMin({
-			player_name: name.toLowerCase(),
-		}, div );
-		plyr.startup();
+		//var plyr = new PlyrWinMin(params, div );
+		var plyr = PlyrWinMin.create(params);
+		//plyr.startup();
+	
+	},
+	
+	addMultiplePlyrs: function (members) {
+		console.log("FeedBody addMultiplePlyrs:", members[0]);
+		
+		var count = 99;
+		if( members.length < count ) { 
+			count = members.length; 
+		}
+		
+		for(var i = 0; i < members.length; ++i) {
+			console.log("loop online:", members[i].online_status);
+			if( members[i].online_status != '0' ) {
+				console.log("loop 1");
+				this.addPlyr({
+					//player_name: members[i].name.first_lower,
+					player_id: members[i].character_id,
+				});
+				count--;
+			}
+			if( count <= 0 ) {
+				break;
+			}
+		}
 	
 	},
 	

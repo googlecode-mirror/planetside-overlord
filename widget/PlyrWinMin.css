@@ -36,6 +36,7 @@
 	height: 25px;
 	padding: 0px 5px;
 	float: left;
+	overflow:hidden;
 }
 
 .PlyrWinMin .p_br {
@@ -94,3 +95,27 @@
 .PlyrWinMin .p_que .p_que_d {
 	background-color: #D90000;
 }
+
+.PlyrKillQueDebug {
+	background-color: #DDDDDD;
+}
+
+.PlyrKillQueDebug .p_debug_table {
+	/*background-color: #DDDDDD;*/
+	border: 0px;
+}
+
+.PlyrKillQueDebug .p_feed_d {
+	background-color: #D90000;
+}
+
+.PlyrKillQueDebug .p_feed_k {
+	background-color: #00B300;
+	border: 0px;
+}
+
+.PlyrKillQueDebug .p_feed_k td {
+	/*background-color: #00B300;*/
+	border: 0px;
+}
+
