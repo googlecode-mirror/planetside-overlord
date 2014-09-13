@@ -1,6 +1,7 @@
 define([
 	"ps2/widget/PlyrWindow",
 	"ps2/widget/PlyrWinMin",
+	"ps2/widget/outfit/OutfitMon",
 	
 	"dojo/io/script", 
 	"dojo/dnd/Source", 
@@ -14,6 +15,7 @@ define([
 ], function(
 	PlyrWindow,
 	PlyrWinMin,
+	OutfitMon,
 	
 	Script, 
 	Source, 
@@ -71,11 +73,23 @@ return dojo.declare("ps2.containers.FeedBody", [ dijit._Widget, dijit._Templated
 		}, dojo.byId("player_feed_wall") );
 		widget.startup();*/
 	
-		this.addPlyr({ player_name: 'ratch'});
+		//this.addPlyr({ player_name: 'ratch'});
 		//this.addPlyr('Okamiba');
 		this.addOutfit('merc');
 	},
 	
+	addOutfit: function (tag_lower) {
+		var self = this;
+		console.log("FeedBody addOutfit:", tag_lower);
+		
+		//var outfit = OutfitMon.create(tag_lower);
+		var outfit = new OutfitMon({ 
+			outfit_tag_lower: tag_lower 
+		});
+	},
+	
+	/*
+	// OLD, BEFORE OutfitMon class
 	addOutfit: function (tag) {
 		var self = this;
 		console.log("FeedBody addOutfit:", tag);
@@ -102,7 +116,7 @@ return dojo.declare("ps2.containers.FeedBody", [ dijit._Widget, dijit._Templated
 			}
 		});
 	
-	},
+	},*/
 	
 	// params can contain player_id or player_name or both
 	addPlyr: function (params) {
