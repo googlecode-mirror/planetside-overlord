@@ -101,7 +101,7 @@ define([
 			this.p_que.player_id = character_data.character_id;
 			
 			// set player BR 
-			this.p_br.innerHTML = character_data.battle_rank.value;
+			this.p_br.innerHTML = ((character_data.battle_rank.value.length > 2 ) ? "BR " : "BR  ") + character_data.battle_rank.value;
 			
 			this.player_stats = character_data;
 		},
@@ -193,7 +193,7 @@ define([
 			return false;
 		}
 		// create a dom div for this widget
-		var div = dojo.create("div", null, dojo.byId("player_feed_wall"), "first");
+		var div = dojo.create("div", null, dojo.byId("player_feed_wall"), "last");
 		
 		var plyr = new PlyrWinMin(params, div );
 		plyr.startup();

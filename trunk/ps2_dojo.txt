@@ -1,0 +1,27 @@
+<NotepadPlus>
+    <Session activeView="1">
+        <mainView activeIndex="2">
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1" startPos="197" endPos="197" selMode="0" lang="HTML" encoding="-1" filename="D:\xampp\htdocs\ps2\widget\PlyrWindow.html" backupFilePath="" originalFileLastModifTimestamp="1409715791" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1917" startPos="328" endPos="328" selMode="0" lang="Javascript" encoding="-1" filename="D:\xampp\htdocs\ps2\widget\PlyrWindow.js" backupFilePath="" originalFileLastModifTimestamp="1409718219" />
+            <File firstVisibleLine="58" xOffset="0" scrollWidth="1917" startPos="1879" endPos="1879" selMode="0" lang="Javascript" encoding="-1" filename="D:\xampp\htdocs\ps2\containers\FeedBody.js" backupFilePath="" originalFileLastModifTimestamp="1410150994" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1917" startPos="90" endPos="90" selMode="0" lang="HTML" encoding="-1" filename="D:\xampp\htdocs\ps2\containers\FeedBody.html" backupFilePath="" originalFileLastModifTimestamp="1409633626" />
+            <File firstVisibleLine="3" xOffset="0" scrollWidth="1026" startPos="585" endPos="585" selMode="0" lang="Javascript" encoding="-1" filename="D:\xampp\htdocs\ps2\containers\FeedFooter.js" backupFilePath="" originalFileLastModifTimestamp="1410132917" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="819" startPos="86" endPos="86" selMode="0" lang="HTML" encoding="-1" filename="D:\xampp\htdocs\ps2\containers\FeedFooter.html" backupFilePath="" originalFileLastModifTimestamp="1409630680" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="819" startPos="241" endPos="241" selMode="0" lang="Javascript" encoding="-1" filename="D:\xampp\htdocs\ps2\containers\FeedHeader.js" backupFilePath="" originalFileLastModifTimestamp="1410132819" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1917" startPos="761" endPos="761" selMode="0" lang="HTML" encoding="-1" filename="D:\xampp\htdocs\ps2\containers\FeedHeader.html" backupFilePath="" originalFileLastModifTimestamp="1409631148" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1917" startPos="12" endPos="16" selMode="0" lang="Javascript" encoding="-1" filename="D:\xampp\htdocs\ps2\containers\FeedDebug.js" backupFilePath="" originalFileLastModifTimestamp="1409718188" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1917" startPos="85" endPos="85" selMode="0" lang="HTML" encoding="-1" filename="D:\xampp\htdocs\ps2\containers\FeedDebug.html" backupFilePath="" originalFileLastModifTimestamp="1409632840" />
+        </mainView>
+        <subView activeIndex="8">
+            <File firstVisibleLine="231" xOffset="0" scrollWidth="1" startPos="3441" endPos="3441" selMode="0" lang="HTML" encoding="-1" filename="D:\xampp\htdocs\ps2\outfitSearch.html" backupFilePath="" originalFileLastModifTimestamp="1409529739" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1953" startPos="84" endPos="84" selMode="0" lang="CSS" encoding="-1" filename="D:\xampp\htdocs\ps2\widget\PlyrWindow.css" backupFilePath="" originalFileLastModifTimestamp="1409627821" />
+            <File firstVisibleLine="182" xOffset="0" scrollWidth="1953" startPos="5675" endPos="5685" selMode="0" lang="PHP" encoding="-1" filename="D:\xampp\htdocs\ps2\index.php" backupFilePath="" originalFileLastModifTimestamp="1410132784" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1953" startPos="429" endPos="429" selMode="0" lang="CSS" encoding="-1" filename="D:\xampp\htdocs\ps2\css\outfitSearch.css" backupFilePath="" originalFileLastModifTimestamp="1409633985" />
+            <File firstVisibleLine="83" xOffset="0" scrollWidth="1953" startPos="2618" endPos="2618" selMode="0" lang="Javascript" encoding="-1" filename="D:\xampp\htdocs\ps2\widget\PlyrWinMin.js" backupFilePath="" originalFileLastModifTimestamp="1410153521" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1953" startPos="575" endPos="579" selMode="0" lang="HTML" encoding="-1" filename="D:\xampp\htdocs\ps2\widget\PlyrWinMin.html" backupFilePath="" originalFileLastModifTimestamp="1410151771" />
+            <File firstVisibleLine="64" xOffset="0" scrollWidth="1953" startPos="1658" endPos="1665" selMode="0" lang="CSS" encoding="-1" filename="D:\xampp\htdocs\ps2\widget\PlyrWinMin.css" backupFilePath="" originalFileLastModifTimestamp="1410150412" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1953" startPos="292" endPos="296" selMode="0" lang="HTML" encoding="-1" filename="D:\xampp\htdocs\ps2\widget\player\PlyrKillQue.html" backupFilePath="" originalFileLastModifTimestamp="1410151777" />
+            <File firstVisibleLine="35" xOffset="0" scrollWidth="1953" startPos="930" endPos="930" selMode="0" lang="Javascript" encoding="-1" filename="D:\xampp\htdocs\ps2\widget\player\PlyrKillQue.js" backupFilePath="" originalFileLastModifTimestamp="1410153709" />
+        </subView>
+    </Session>
+</NotepadPlus>

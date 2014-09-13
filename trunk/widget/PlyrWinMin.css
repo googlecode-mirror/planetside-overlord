@@ -31,27 +31,30 @@
 }
 
 .PlyrWinMin .p_name {
-	background-color: #FFFFFF;/**/
-	width: 100px;
+	/*background-color: #FF0000;*/
+	font-weight: bold;
+	width: 120px;
 	height: 25px;
 	padding: 0px 5px;
 	float: left;
 	overflow:hidden;
+	color: #3C3C3C;
 }
 
 .PlyrWinMin .p_br {
-	background-color: #FFFFFF;/**/
+	/*background-color: #FFFFFF;*/
 	width: 40px;
 	height: 25px;
 	padding: 0px 5px;
-	float: left;
-	margin: 0px 5px 0px 5px;
+	float: right;
+	margin: 0px 0px 0px 0px;
+	text-align: right;
 }
 
 .PlyrWinMin .p_face {
-	background-color: #265CFF;
-	width: 55px;
-	height: 55px;
+	background-color: #aaaaaa;
+	width: 57.5px;
+	height: 52.5px;
 	padding: 0px 0px;
 	border: 0px;
 	float: right;
@@ -70,6 +73,9 @@
 	margin: 0px 0px 0px 0px;
 }*/
 
+/******************
+	Kill Que
+*******************/
 .PlyrWinMin .p_que {
 	background-color: #AAAAAA;/**/
 	width: 75%;
@@ -78,7 +84,7 @@
 	margin: 5px 0px 0px 0px;
 }
 
-.PlyrWinMin .p_que .p_que_k, .p_que_d {
+.PlyrWinMin .p_que .p_que_k, .p_que_d, .p_que_s {
 	width: 20px;
 	height: 17.5px;
 	padding: 0px 0px;
@@ -93,24 +99,36 @@
 }
 
 .PlyrWinMin .p_que .p_que_d {
-	background-color: #D90000;
+	background-color: #3C3C3C;
+}
+
+.PlyrWinMin .p_que .p_que_s {
+	background-color: #D52F2F;
 }
 
 .PlyrKillQueDebug {
-	background-color: #DDDDDD;
+	/*background-color: #DDDDDD;*/
 }
 
+/******************
+	Debug
+*******************/
 .PlyrKillQueDebug .p_debug_table {
-	/*background-color: #DDDDDD;*/
-	border: 0px;
+	/*background-color: #DDDDDD;
+	border: 0px;*/
+	color: #686868;
 }
 
 .PlyrKillQueDebug .p_feed_d {
 	background-color: #D90000;
 }
 
+.PlyrKillQueDebug .p_feed_s {
+	background-color: #FF9326;
+}
+
 .PlyrKillQueDebug .p_feed_k {
-	background-color: #00B300;
+	/*background-color: #00B300;*/
 	border: 0px;
 }
 
