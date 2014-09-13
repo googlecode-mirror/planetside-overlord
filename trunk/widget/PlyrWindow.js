@@ -17,6 +17,10 @@ define([
 	dom,
 	template
 ){
+		// Summary:
+		// Player Window will be a leftpane view that shows a DETAILED
+		// killstream of the player entered. This will not have outfit info,
+		// instead that will be shown on the OutfitMon pane.
 		
 	return dojo.declare("ps2.widget.PlyrWindow", [ dijit._Widget, dijit._Templated ], {
 
