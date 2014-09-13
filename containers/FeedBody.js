@@ -47,21 +47,21 @@ return dojo.declare("ps2.containers.FeedBody", [ dijit._Widget, dijit._Templated
 			 title: "Feeds",
 			 //closable: true,
 			 //content: '<div id="player_feed_wall"  style="min-height:400px;"><span id="bounty_feed_wall" class="window" style="min-height:400px;width:350px;"></span><span id="pArr" class="window"></span></div>',
-			 content: '<div id="player_feed_wall" class=""  style="height:400px;">feeds</div>',
+			 content: '<div id="player_feed_wall" class=""  style="height:400px;"></div>',
 			 
 		});
 		tc.addChild(playerFeedTab);
 
-		var OutfitFeedTab = new ContentPane({
+		var SettingsTab = new ContentPane({
 			 title: "Settings",
 			 //closable: true,
-			 content: '<div id="outfit_feed_wall" style="min-height:400px;">TODO: Create Settings Template</div>',
+			 content: '<div id="settings_tab" style="min-height:400px;">TODO: Create Settings Template</div>',
 			 onClose: function() {
 				OutfitWindow.closeAll();
 				return false;
 			 }
 		});
-		tc.addChild(OutfitFeedTab);
+		tc.addChild(SettingsTab);
 
 		tc.startup();
 		
@@ -71,9 +71,9 @@ return dojo.declare("ps2.containers.FeedBody", [ dijit._Widget, dijit._Templated
 		}, dojo.byId("player_feed_wall") );
 		widget.startup();*/
 	
-		//this.addPlyr('ratch');
+		this.addPlyr({ player_name: 'ratch'});
 		//this.addPlyr('Okamiba');
-		this.addOutfit('aod');
+		this.addOutfit('merc');
 	},
 	
 	addOutfit: function (tag) {
@@ -88,10 +88,6 @@ return dojo.declare("ps2.containers.FeedBody", [ dijit._Widget, dijit._Templated
 				+"&c:resolve=leader",
 			handleAs: 'text',
 			content: {
-				/*"alias_lower" : tag,
-				"c:resolve": "member_character(name)",
-				"c:resolve": "member_online_status",
-				"c:resolve": "leader"*/
 			},
 			callbackParamName: "callback",
 			load: function (data, ioargs) {
@@ -112,19 +108,14 @@ return dojo.declare("ps2.containers.FeedBody", [ dijit._Widget, dijit._Templated
 	addPlyr: function (params) {
 		console.log("FeedBody addPlyr:", params);
 		
-		// create a dom div for this widget
-		//var div = dojo.create("div", null, dojo.byId("player_feed_wall"), "first");
-		
-		//var plyr = new PlyrWinMin(params, div );
 		var plyr = PlyrWinMin.create(params);
-		//plyr.startup();
 	
 	},
 	
 	addMultiplePlyrs: function (members) {
 		console.log("FeedBody addMultiplePlyrs:", members[0]);
 		
-		var count = 99;
+		var count = 50;
 		if( members.length < count ) { 
 			count = members.length; 
 		}
