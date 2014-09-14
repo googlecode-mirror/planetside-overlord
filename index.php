@@ -25,8 +25,14 @@
 <!-- DOJO CSS -->
 <link rel="stylesheet" href="../dojoprojects/dijit/themes/claro/claro.css" />
 <link rel="stylesheet" href="css/outfitSearch.css" type="text/css" />
-<link rel="stylesheet" href="widget/PlyrWinMin.css" type="text/css" />
+<link rel="stylesheet" href="widget/player/PlyrWinMin.css" type="text/css" />
+<link rel="stylesheet" href="widget/outfit/OutfitMon.css" type="text/css" />
 
+<!-- FONTS -->
+<link href='http://fonts.googleapis.com/css?family=Pathway+Gothic+One' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Tulpen+One' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Six+Caps' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Ropa+Sans' rel='stylesheet' type='text/css'>
 <script>
 var feed;
 var playerHistory;
@@ -152,7 +158,7 @@ function addPlayerFeed(player_name) {
 
 </head>
 
-<body class='claro'>    
+<body class=''>    
 	<!-- configure Dojo -->
     <script>
         // Instead of using data-dojo-config, we're creating a dojoConfig
@@ -186,7 +192,6 @@ function addPlayerFeed(player_name) {
 			"ps2/containers/FeedDebug",
 			"ps2/containers/FeedBody",
 			"ps2/containers/FeedFooter",
-			"ps2/widget/PlyrWindow",
 			
 			"dijit/layout/TabContainer", 
 			"dijit/layout/ContentPane",
@@ -198,7 +203,6 @@ function addPlayerFeed(player_name) {
 			FeedDebug, 
 			FeedBody, 
 			FeedFooter, 
-			PlyrWindow, 
 			
 			TabContainer, 
 			ContentPane, 

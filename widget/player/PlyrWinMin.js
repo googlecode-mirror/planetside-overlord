@@ -21,8 +21,15 @@ define([
 	dom,
 	template
 ){
+
+	// Constructor can be passed two basic options for player identity 
+	//		(must have at least one!)
+	// 		player_name:
+	// 		player_id:
+	// player_stats: Pass object with the player stats, otherwise this will make api call
+	// useWebsock = Pass true if you want this to handle the websocket for you
 		
-	var PlyrWinMin =  dojo.declare("ps2.widget.PlyrWinMin", [ _Widget, _Templated ], {
+	var PlyrWinMin =  dojo.declare("ps2.widget.player.PlyrWinMin", [ _Widget, _Templated ], {
 
 		templateString: template, //dojo.cache("example", "templates/SomeWidget.html"),
 		widgetsInTemplate: true,
@@ -42,6 +49,9 @@ define([
 			// Set defaults
 			this.player_id = (params.player_id ? params.player_id.toLowerCase() : '');
 			this.player_name = (params.player_name ? params.player_name.toLowerCase() : '');
+			this.player_stats = (params.player_stats ? params.player_stats : false);
+			this.useWebsock = (params.useWebsock ? params.useWebsock : false);
+			
 			
 		},
 		
@@ -53,7 +63,12 @@ define([
 			dojo.ready(function(){				
 				
 				// Initial fetchStats
-				self.fetchStats();
+				if( self.player_stats == false ) {
+					self.fetchStats();
+				} else {
+					self.setStats(data.character_list[0]);
+					self.finishedLoad();
+				}
 				
 			});//end dojo.ready
 			
@@ -78,13 +93,12 @@ define([
 				content: content,
 				callbackParamName: "callback",
 				load: function (data, ioargs) {
-					console.log('load Plyr io', ioargs);
+					//console.log('load Plyr io', ioargs);
 				}
 			}).then(function (data) {
-				console.log("then data:", data);
+				console.log("PlyrWinMin GET data:", data);
 				self.setStats(data.character_list[0]);
 				self.finishedLoad();
-				self.requestWebsock();
 			});
 		
 		},
@@ -112,6 +126,10 @@ define([
 			dojo.style(this.p_body, {
 				"display": "block"
 			});
+			
+			if( self.useWebsock ) {
+				self.requestWebsock();
+			}
 			
 			// test stuff here
 			/*setTimeout(function () {
@@ -144,6 +162,7 @@ define([
 		
 		},
 		
+		// ONLY USED when useWebsock is true
 		requestWebsock: function () {
 			var self = this;
 			
@@ -185,15 +204,30 @@ define([
 			
 		},
 		
+		playerEvent: function (event) {
+		
+			this.p_que.pushEvent( event );
+		},
+		
+		closeThis: function () {
+			console.log("closeThis: ", this.player_stats.name.first);
+			
+			if( this.useWebsock ) {
+				
+				this.connection.close();
+			}
+			this.destroy();
+		},
+		
 	});
 	
-	dojo.mixin(PlyrWinMin, {create: function (params) {
+	dojo.mixin(PlyrWinMin, {create: function (params, container) {
 		if( !params.player_id && !params.player_name ){
 			console.error("PlyWinMin needs a player id or name!");
 			return false;
 		}
 		// create a dom div for this widget
-		var div = dojo.create("div", null, dojo.byId("player_feed_wall"), "last");
+		var div = dojo.create("div", null, container, "last");
 		
 		var plyr = new PlyrWinMin(params, div );
 		plyr.startup();
