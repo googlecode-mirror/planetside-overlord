@@ -1,6 +1,5 @@
 define([
-	"ps2/widget/PlyrWindow",
-	"ps2/widget/PlyrWinMin",
+	"ps2/widget/player/PlyrWindow",
 	"ps2/widget/outfit/OutfitMon",
 	
 	"dojo/io/script", 
@@ -12,9 +11,9 @@ define([
 	"dijit/form/Button", 
 	"dojo/dom",
 	"dojo/text!./FeedBody.html",
+	"dojo/text!./FeedTab.html",
 ], function(
 	PlyrWindow,
-	PlyrWinMin,
 	OutfitMon,
 	
 	Script, 
@@ -25,12 +24,14 @@ define([
 	ContentPane, 
 	Button, 
 	dom,
-	template
+	FeedBodyTemplate,
+	FeedTabTemplate
 ){
 		
 return dojo.declare("ps2.containers.FeedBody", [ dijit._Widget, dijit._Templated ], {
 
-	templateString: template, //dojo.cache("example", "templates/SomeWidget.html"),
+	templateString: FeedBodyTemplate, //dojo.cache("example", "templates/SomeWidget.html"),
+	widgetsInTemplate: true,
 	
 	//  your custom code goes here
 	constructor: function (params) {
@@ -41,15 +42,17 @@ return dojo.declare("ps2.containers.FeedBody", [ dijit._Widget, dijit._Templated
 		console.log("FeedBody startup ");
 		
 		var tc = new TabContainer({
-			style: "height: 100%; width: 100%;",
+			style: "height: 100%; width: 100%; padding:0px; border:0px;",
 			doLayout:false
 		}, this.tab_container);
 
 		var playerFeedTab = new ContentPane({
 			 title: "Feeds",
+			 style: "padding:0px;",
 			 //closable: true,
 			 //content: '<div id="player_feed_wall"  style="min-height:400px;"><span id="bounty_feed_wall" class="window" style="min-height:400px;width:350px;"></span><span id="pArr" class="window"></span></div>',
-			 content: '<div id="player_feed_wall" class=""  style="height:400px;"></div>',
+			 //content: '<div id="feed_main_div" class=""  style="height:400px;"></div>',
+			 content: FeedTabTemplate,
 			 
 		});
 		tc.addChild(playerFeedTab);
@@ -57,7 +60,7 @@ return dojo.declare("ps2.containers.FeedBody", [ dijit._Widget, dijit._Templated
 		var SettingsTab = new ContentPane({
 			 title: "Settings",
 			 //closable: true,
-			 content: '<div id="settings_tab" style="min-height:400px;">TODO: Create Settings Template</div>',
+			 content: '<div id="settings_tab" style="min-height:200px;">TODO: Create Settings Template</div>',
 			 onClose: function() {
 				OutfitWindow.closeAll();
 				return false;
@@ -68,7 +71,7 @@ return dojo.declare("ps2.containers.FeedBody", [ dijit._Widget, dijit._Templated
 		tc.startup();
 		
 		
-		/*var widget = new ps2.widget.PlyrWindow({
+		/*var widget = new ps2.widget.player.PlyrWindow({
 			player_id: '5366546354656',
 		}, dojo.byId("player_feed_wall") );
 		widget.startup();*/
@@ -82,41 +85,10 @@ return dojo.declare("ps2.containers.FeedBody", [ dijit._Widget, dijit._Templated
 		var self = this;
 		console.log("FeedBody addOutfit:", tag_lower);
 		
-		//var outfit = OutfitMon.create(tag_lower);
-		var outfit = new OutfitMon({ 
+		var outfit = OutfitMon.create({
 			outfit_tag_lower: tag_lower 
-		});
+		}, 'feed_main_div');
 	},
-	
-	/*
-	// OLD, BEFORE OutfitMon class
-	addOutfit: function (tag) {
-		var self = this;
-		console.log("FeedBody addOutfit:", tag);
-		
-		var getOutfit = Script.get({
-			url: 'https://census.soe.com/s:rch/get/ps2:v2/outfit/'
-				+"?alias_lower="+tag.toLowerCase()
-				+"&c:resolve=member_character(name)"
-				+"&c:resolve=member_online_status"
-				+"&c:resolve=leader",
-			handleAs: 'text',
-			content: {
-			},
-			callbackParamName: "callback",
-			load: function (data, ioargs) {
-				//console.log("load addOutfit data:", data, 'io:', ioargs);
-			}
-		}).then(function (data, ioargs) {
-			console.log("addOutfit data:", data);
-			if( data.outfit_list[0] != null ) {
-				self.addMultiplePlyrs(data.outfit_list[0].members);
-			} else {
-				console.warn("data.outfit_list[0] is null!");
-			}
-		});
-	
-	},*/
 	
 	// params can contain player_id or player_name or both
 	addPlyr: function (params) {
@@ -149,6 +121,12 @@ return dojo.declare("ps2.containers.FeedBody", [ dijit._Widget, dijit._Templated
 			}
 		}
 	
+	},
+	
+	addOutfitClick: function () {
+		var self = this;
+		console.log("FeedBody addOutfitClick:");
+		this.addOutfit(this.tag_input.value);
 	},
 	
 });

@@ -1,0 +1,32 @@
+/******************************************
+   AUTHOR:  			Richard Howell 
+   WEBSITE:   			http://www.rchhome.com/
+
+ *****************************************/ 
+ 
+/********************************************
+   HTML ELEMENTS
+********************************************/ 
+
+.OutfitMon {
+	background-color: #00141A;/**/
+	height: 95%;
+	padding: 10pt;
+}
+.OutfitMon .outfit_mon_tag {
+	height: 50px;
+	color: #00758C;
+	font-weight: bold;/**/
+	font-family: 'Pathway Gothic One', sans-serif;/**/
+	/*font-family: Arial, Helvetica, sans-serif;*/
+	/*font-family: 'Ropa Sans', sans-serif;*/
+	/*font-family: 'Six Caps', sans-serif;*/
+	font-size: 20pt;
+	text-transform: uppercase;/**/
+}
+.OutfitMon .outfit_mon_body {
+	height: 80%;
+	color: #00758C;
+}
+
+

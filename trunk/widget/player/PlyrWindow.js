@@ -22,7 +22,7 @@ define([
 		// killstream of the player entered. This will not have outfit info,
 		// instead that will be shown on the OutfitMon pane.
 		
-	return dojo.declare("ps2.widget.PlyrWindow", [ dijit._Widget, dijit._Templated ], {
+	return dojo.declare("ps2.widget.player.PlyrWindow", [ dijit._Widget, dijit._Templated ], {
 
 		templateString: template, //dojo.cache("example", "templates/SomeWidget.html"),
 		
