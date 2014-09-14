@@ -28,5 +28,13 @@
 	height: 80%;
 	color: #00758C;
 }
+.OutfitMon .outfit_mon_left_pane {
+	width:200px;
+	height:400px;
+	color: #FFFF00;
+}
+.feed_main_div {
+	overflow: none;
+}
 
 
