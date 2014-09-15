@@ -23,8 +23,8 @@
 <script src="widget/bountyWindow.js"></script>
 
 <!-- DOJO CSS -->
-<link rel="stylesheet" href="../dojoprojects/dijit/themes/claro/claro.css" />
-<link rel="stylesheet" href="css/outfitSearch.css" type="text/css" />
+<!----><link rel="stylesheet" href="../dojoprojects/dijit/themes/claro/claro.css" />
+<!--<link rel="stylesheet" href="css/outfitSearch.css" type="text/css" />-->
 <link rel="stylesheet" href="widget/player/PlyrWinMin.css" type="text/css" />
 <link rel="stylesheet" href="widget/outfit/OutfitMon.css" type="text/css" />
 
@@ -158,7 +158,7 @@ function addPlayerFeed(player_name) {
 
 </head>
 
-<body class=''>    
+<body class='interface_scifi'>    
 	<!-- configure Dojo -->
     <script>
         // Instead of using data-dojo-config, we're creating a dojoConfig
@@ -212,10 +212,10 @@ function addPlayerFeed(player_name) {
 		
 			dojo.byId('asdf');
 		
-			var main_header = new FeedHeader({
+			/*var main_header = new FeedHeader({
 			
 			}, "feed_main_header");
-			main_header.startup();
+			main_header.startup();*/
 		
 			var main_debug = new FeedDebug({
 			
@@ -227,19 +227,19 @@ function addPlayerFeed(player_name) {
 			}, "feed_main_body");
 			main_body.startup();
 		
-			var main_footer = new FeedFooter({
+			/*var main_footer = new FeedFooter({
 			
 			}, "feed_main_footer");
-			main_footer.startup();
+			main_footer.startup();*/
 			
 		});
 	</script>
 	
-	<!-- Feed Main Body -->
-	<div id="feed_main_header"></div>
+	<!-- Feed Main Body 
+	<div id="feed_main_header"></div>-->
 	<div id="feed_main_debug"></div>
 	<div id="feed_main_body"></div>
-	<div id="feed_main_footer"></div>
+	<!--<div id="feed_main_footer"></div>-->
 
 </body>
 </html>
