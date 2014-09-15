@@ -8,30 +8,68 @@
    HTML ELEMENTS
 ********************************************/ 
 
+#feed_body {
+	//background: #333333;
+    height: 100%;
+	position: absolute;
+    margin-bottom: 30px;
+}
+
+.FeedDebug{
+	height: 100px;
+	background-color: #36D900;
+}
+
+.interface_scifi{
+	margin: 0px;
+	padding: 0px;
+	background-color: #00141A;
+	/*height: 100%;
+	width: 100%;
+	position: absolute;*/
+	font-family: 'Pathway Gothic One', sans-serif;
+	color: #00758C;
+}
+
 .OutfitMon {
 	background-color: #00141A;/**/
-	height: 95%;
 	padding: 10pt;
+	/*display: inline-block;*/
+}
+
+
+/* OutfitMon Right Pane */
+.OutfitMon .outfit_mon_content_wrapper {
+	float: left;
+	width: 100%;
+}
+.OutfitMon .outfit_mon_right_pane {
+	float: left;
+	margin: 0px 0px 0px 275px;
+	/*width: 800px;*/
+	background-color: #FF8000;
 }
 .OutfitMon .outfit_mon_tag {
 	height: 50px;
-	color: #00758C;
 	font-weight: bold;/**/
-	font-family: 'Pathway Gothic One', sans-serif;/**/
 	/*font-family: Arial, Helvetica, sans-serif;*/
 	/*font-family: 'Ropa Sans', sans-serif;*/
 	/*font-family: 'Six Caps', sans-serif;*/
 	font-size: 20pt;
 	text-transform: uppercase;/**/
+	background-color: #FF8000;
 }
 .OutfitMon .outfit_mon_body {
-	height: 80%;
-	color: #00758C;
 }
+
+
+/* OutfitMon Left Pane */
 .OutfitMon .outfit_mon_left_pane {
-	width:200px;
-	height:400px;
-	color: #FFFF00;
+	float: left;
+	width:265px;
+	margin-left: -100%;
+	/*min-height:600px;*/
+	background-color: #FFFF00;
 }
 .feed_main_div {
 	overflow: none;

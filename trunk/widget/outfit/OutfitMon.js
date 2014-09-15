@@ -1,4 +1,5 @@
 define([
+	"ps2/widget/player/PlyrWindow",
 	"ps2/widget/player/PlyrWinMin", 
 	"ps2/containers/MemberApi", 
 	
@@ -12,6 +13,7 @@ define([
 	"dojo/dom",
 	"dojo/text!./OutfitMon.html",
 ], function(
+	PlyrWindow, 
 	PlyrWinMin, 
 	MemberApi, 
 	
@@ -37,6 +39,7 @@ define([
 		members: null,
 		
 		PlyrWinMinContainer: {},
+		PlyrWindow: null,// left pane view
 		
 		//  your custom code goes here
 		constructor: function (params) {
@@ -57,7 +60,7 @@ define([
 			console.log("OutfitMon startup ");
 		
 			
-			dojo.ready(function(){				
+			dojo.ready(function(){
 				
 				// Initial fetchStats
 				self.members = new MemberApi({
@@ -71,6 +74,17 @@ define([
 				
 			});//end dojo.ready
 			
+		},
+		
+		
+		setPlyrWindow: function(player_name) {
+			if( this.PlyrWindow ) {
+				console.error("PlyrWindow already exists!, can't add ", player_name);
+			} else {
+				this.PlyrWindow = PlyrWinMin.create({
+					player_name: player_name,
+				}, this.player_feed);
+			}
 		},
 		
 		

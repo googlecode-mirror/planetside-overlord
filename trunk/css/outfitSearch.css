@@ -33,11 +33,6 @@ body {
 	text-align: center;
 	display: none;
 }
-#feed_main_body {
-	//background: #333333;
-    height: 100%;
-    margin-bottom: 30px;
-}
 
 .window {
 	border:0px solid;

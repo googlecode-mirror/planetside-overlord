@@ -41,8 +41,8 @@ return dojo.declare("ps2.containers.FeedBody", [ dijit._Widget, dijit._Templated
 	startup: function () {
 		console.log("FeedBody startup ");
 		
-		var tc = new TabContainer({
-			style: "height: 100%; width: 100%; padding:0px; border:0px;",
+		/*var tc = new TabContainer({
+			//style: "height: 100%; width: 100%; padding:0px; border:0px;",
 			doLayout:false
 		}, this.tab_container);
 
@@ -68,7 +68,7 @@ return dojo.declare("ps2.containers.FeedBody", [ dijit._Widget, dijit._Templated
 		});
 		tc.addChild(SettingsTab);
 
-		tc.startup();
+		tc.startup();*/
 		
 		
 		/*var widget = new ps2.widget.player.PlyrWindow({
@@ -79,6 +79,7 @@ return dojo.declare("ps2.containers.FeedBody", [ dijit._Widget, dijit._Templated
 		//this.addPlyr({ player_name: 'ratch'});
 		//this.addPlyr('Okamiba');
 		this.addOutfit('merc');
+		//this.addOutfit('exe');
 	},
 	
 	addOutfit: function (tag_lower) {
@@ -87,7 +88,8 @@ return dojo.declare("ps2.containers.FeedBody", [ dijit._Widget, dijit._Templated
 		
 		var outfit = OutfitMon.create({
 			outfit_tag_lower: tag_lower 
-		}, 'feed_main_div');
+		}, this.feed_body);
+		outfit.setPlyrWindow('ratch');
 	},
 	
 	// params can contain player_id or player_name or both
