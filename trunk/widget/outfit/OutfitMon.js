@@ -83,6 +83,7 @@ define([
 			} else {
 				this.PlyrWindow = PlyrWinMin.create({
 					player_name: player_name,
+					useWebsock: true,
 				}, this.player_feed);
 			}
 		},

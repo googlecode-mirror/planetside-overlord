@@ -148,9 +148,74 @@ define([
 		// Outside callbacks
 		playerEvent: function (event) {
 			//console.log("event:", event);
+			
 			if( this.onPlayerEvent != null ) {
-				this.onPlayerEvent(event);
+			
+				// Check in Death event and get Weapon stats before callback
+				if( event.event_name == 'Death' ) {
+					this.getWeaponStats(event);
+				} else {
+					this.onPlayerEvent(event);
+				}
+					
 			}
+		},
+		
+		// Api Weapon Info
+		getWeaponStats: function (event) {
+			var self = this;
+			console.log("MemberApi getWeaponStats() event:", event);
+			
+			var url = 'http://census.soe.com/s:rch/get/ps2:v2/item/'
+				+'?item_id='+event.attacker_weapon_id
+				+'&c:show=name.en,image_path';
+			self.myGet = Script.get({
+				url: url,
+				handleAs: 'json',
+				//content: content,
+				callbackParamName: "callback",
+				load: function (data, ioargs) {
+					//console.log('MemberApi getWeaponStats io', ioargs);
+				}
+			}).then(function (data) {
+				console.log("MemberApi GET getWeaponStats data:", data);
+				event['weapon_stats'] = data.item_list[0];
+				//self.onPlayerEvent(event);
+				self.getCharacterStats(event);
+			});
+		},
+		
+		// Api Info
+		getCharacterStats: function (event) {
+			var self = this;
+			console.log("MemberApi getCharacterStats() event:", event);
+			
+			var url = 'http://census.soe.com/s:rch/get/ps2:v2/character/'
+			+'?character_id='+ event.attacker_character_id + ','
+			+event.character_id
+			+'&c:resolve=outfit_member_extended';
+			self.myGet = Script.get({
+				url: url,
+				handleAs: 'json',
+				//content: content,
+				callbackParamName: "callback",
+				load: function (data, ioargs) {
+					console.log('MemberApi getCharacterStats io', ioargs);
+				}
+			}).then(function (data) {
+				console.log("MemberApi GET getCharacterStats data:", data);
+				
+				//sort attacker and player
+				if( data.character_list[0].character_id == event.attacker_character_id ) {
+					event['attacker_stats'] = data.character_list[0];
+					event['victim_stats'] = data.character_list[1];
+				} else {
+					event['attacker_stats'] = data.character_list[1];
+					event['victim_stats'] = data.character_list[0];
+				}
+				
+				self.onPlayerEvent(event);
+			});
 		},
 		
 	});

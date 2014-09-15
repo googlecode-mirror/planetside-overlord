@@ -89,7 +89,7 @@ return dojo.declare("ps2.containers.FeedBody", [ dijit._Widget, dijit._Templated
 		var outfit = OutfitMon.create({
 			outfit_tag_lower: tag_lower 
 		}, this.feed_body);
-		outfit.setPlyrWindow('ratch');
+		setTimeout(function () {outfit.setPlyrWindow('ratch')}, 5000);
 	},
 	
 	// params can contain player_id or player_name or both
