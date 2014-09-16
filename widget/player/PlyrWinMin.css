@@ -107,7 +107,8 @@
 }
 
 .PlyrWinMin .p_que .p_que_td {
-	background-color: #565656;
+	background-color: #3C3C3C;
+	color: #FDFD00;
 }
 
 .PlyrWinMin .p_que .p_que_s {
@@ -125,6 +126,11 @@
 	/*background-color: #DDDDDD;
 	border: 0px;*/
 	color: #686868;
+}
+.PlyrKillQueDebug {
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: right top;
 }
 
 .PlyrKillQueDebug .p_feed_d {
