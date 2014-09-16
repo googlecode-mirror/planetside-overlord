@@ -200,7 +200,7 @@ define([
 				console.log("TODO: check connection");
 				//self.updateStatus();
 				//self.updateTotalMembers();
-			},2000);
+			},20000);
 			
 		},
 		

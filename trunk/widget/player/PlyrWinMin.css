@@ -84,7 +84,7 @@
 	margin: 5px 0px 0px 0px;
 }
 
-.PlyrWinMin .p_que .p_que_k, .p_que_d, .p_que_s {
+.PlyrWinMin .p_que .p_que_k, .p_que_d, .p_que_s, .p_que_tk, .p_que_td {
 	width: 20px;
 	height: 17.5px;
 	padding: 0px 0px;
@@ -98,8 +98,16 @@
 	background-color: #00B300;
 }
 
+.PlyrWinMin .p_que .p_que_tk {
+	background-color: #FF9326;
+}
+
 .PlyrWinMin .p_que .p_que_d {
 	background-color: #3C3C3C;
+}
+
+.PlyrWinMin .p_que .p_que_td {
+	background-color: #565656;
 }
 
 .PlyrWinMin .p_que .p_que_s {
