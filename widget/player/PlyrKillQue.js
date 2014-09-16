@@ -97,29 +97,43 @@ define([
 				domConstruct.destroy(query[query.length-1]);
 			}
 			
+			var replaceThese = ["p_que_k", "p_que_r", "p_que_d", "p_que_s", "p_que_td", "p_que_tk"];
 			switch(txt) {
 				case 'D':
 					// create Death txt
 					var node = domConstruct.create("div", {innerHTML: txt}, self.p_que, "first");
-					dojo.replaceClass(node, "p_que_d", ["p_que_k", "p_que_r", "p_que_d", "p_que_s"]);
+					dojo.replaceClass(node, "p_que_d", replaceThese);
 				break;
 					
 				case 'SS':
 					// create Suicide txt
 					var node = domConstruct.create("div", {innerHTML: txt}, self.p_que, "first");
-					dojo.replaceClass(node, "p_que_s", ["p_que_k", "p_que_r", "p_que_d", "p_que_s"]);
+					dojo.replaceClass(node, "p_que_s", replaceThese);
 				break;
 					
 				case 'K':
 					// create Kill txt
 					var node = domConstruct.create("div", {innerHTML: txt}, self.p_que, "first");
-					dojo.replaceClass(node, "p_que_k", ["p_que_k", "p_que_r", "p_que_d", "p_que_s"]);
+					dojo.replaceClass(node, "p_que_k", replaceThese);
+				break;
+					
+				case 'TK':
+					// create Kill txt
+					var node = domConstruct.create("div", {innerHTML: txt}, self.p_que, "first");
+					dojo.replaceClass(node, "p_que_tk", replaceThese);
+				break;
+					
+				case 'TD':
+					// create Kill txt
+					var node = domConstruct.create("div", {innerHTML: txt}, self.p_que, "first");
+					dojo.replaceClass(node, "p_que_td", replaceThese);
 				break;
 				
 			}
 		},
 		
 		handleKillEvent: function (event) {
+			console.log("PlyrKillQue handleKillEvent event :", event);
 			console.log("attacker :", event.attacker_character_id);
 			console.log("player_id:", this.player_id);
 			if( event.attacker_character_id == this.player_id ) {	
@@ -134,22 +148,21 @@ define([
 				
 					// Player killed someone and NOT self
 					
-					// TODO if( kill_was_TK ) {
-					//			this.handleKillTK();
-					//		} else {
-								this.handleKillBasic(event);
-					// 		}
+					if( event.attacker_stats.faction_id == event.victim_stats.faction_id ) {
+						this.handleKillTK();
+					} else {
+						this.handleKillBasic(event);
+					}
 				}
 			
 			} else if(  event.attacker_character_id != this.player_id ) {
 				
 				// Player victim of someone and NOT self	
-				
-				// TODO if( death_was_TK ) {
-				//			this.handleDeathTK();
-				//		} else {
-							this.handleDeathBasic(event)
-				// 		}
+				if( event.attacker_stats.faction_id == event.victim_stats.faction_id ) {
+					this.handleDeathTK();
+				} else {
+					this.handleDeathBasic(event)
+				}
 			} else {
 				
 				// Not possible
@@ -165,11 +178,11 @@ define([
 		},
 		
 		handleKillTK: function (event) {
-			// requires ajax call
+			this.pushQue('TK');
 		},
 		
 		handleDeathTK: function (event) {
-			// requires ajax call
+			this.pushQue('TD');
 		},
 		
 		handleSuicide: function (event) {

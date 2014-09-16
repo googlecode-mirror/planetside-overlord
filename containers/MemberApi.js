@@ -1,9 +1,11 @@
 define([
 	
+	"dojo/DeferredList",
 	"dojo/io/script", 
 	"dojo/dom"
 ], function(
 	
+	DeferredList,
 	Script, 
 	dom
 ){
@@ -141,21 +143,75 @@ define([
 				console.log("TODO: MemberApi check connection");
 				//self.updateStatus();
 				//self.updateTotalMembers();
-			},2000);
+			},20000);
 			
+		},
+		
+		// This calls onPlayerEvent callback with additional info:
+		//	 weapon stats on 'death' event
+		//   character name for both players
+		playerEventPacked: function (getResults, event) {
+			var self = this;
+			
+			// set character stats
+			if( getResults[0][0] ==  true ) {
+				var charData = getResults[0][1];
+				console.log("MemberApi GET charData:", charData);
+				//sort attacker and player
+				if( charData.character_list[0].character_id == event.attacker_character_id ) {
+					event['attacker_stats'] = charData.character_list[0];
+					event['victim_stats'] = charData.character_list[1];
+				} else {
+					event['attacker_stats'] = charData.character_list[1];
+					event['victim_stats'] = charData.character_list[0];
+				}
+			}
+			
+			// set wep stats
+			if( getResults[1][0] ==  true ) {
+				var wepData = getResults[1][1];
+				console.log("MemberApi GET wepData:", wepData);
+				event['weapon_stats'] = wepData.item_list[0];	
+			}
+			
+			// set vehicle stats
+			if( event.attacker_vehicle_id != '0' && getResults[2][0] ==  true ) {
+				var vehData = getResults[2][1];
+				console.log("MemberApi GET vehData:", vehData);
+				event['vehicle_stats'] = vehData.vehicle_list[0];	
+			}
+
+
+			self.onPlayerEvent(event); 
 		},
 		
 		// Outside callbacks
 		playerEvent: function (event) {
+			var self = this;
 			//console.log("event:", event);
 			
 			if( this.onPlayerEvent != null ) {
 			
 				// Check in Death event and get Weapon stats before callback
 				if( event.event_name == 'Death' ) {
-					this.getWeaponStats(event);
+					var apiCalls = [];
+					
+					apiCalls.push(this.getCharacterStats(event));
+					apiCalls.push(this.getWeaponStats(event));
+					
+					if( event.attacker_vehicle_id != '0' ) {
+						apiCalls.push(this.getVehicleStats(event));
+					}
+						
+					var list = new DeferredList(apiCalls);
+					list.then(function(eventPacked) {
+						console.log("eventPacked:", eventPacked);
+						self.playerEventPacked(eventPacked, event);
+					});
 				} else {
+					// Get info via requests
 					this.onPlayerEvent(event);
+
 				}
 					
 			}
@@ -169,7 +225,7 @@ define([
 			var url = 'http://census.soe.com/s:rch/get/ps2:v2/item/'
 				+'?item_id='+event.attacker_weapon_id
 				+'&c:show=name.en,image_path';
-			self.myGet = Script.get({
+			var wepGet = Script.get({
 				url: url,
 				handleAs: 'json',
 				//content: content,
@@ -177,15 +233,11 @@ define([
 				load: function (data, ioargs) {
 					//console.log('MemberApi getWeaponStats io', ioargs);
 				}
-			}).then(function (data) {
-				console.log("MemberApi GET getWeaponStats data:", data);
-				event['weapon_stats'] = data.item_list[0];
-				//self.onPlayerEvent(event);
-				self.getCharacterStats(event);
 			});
+			return wepGet;
 		},
 		
-		// Api Info
+		// Api Both Character Info
 		getCharacterStats: function (event) {
 			var self = this;
 			console.log("MemberApi getCharacterStats() event:", event);
@@ -194,7 +246,7 @@ define([
 			+'?character_id='+ event.attacker_character_id + ','
 			+event.character_id
 			+'&c:resolve=outfit_member_extended';
-			self.myGet = Script.get({
+			var charGet = Script.get({
 				url: url,
 				handleAs: 'json',
 				//content: content,
@@ -202,20 +254,28 @@ define([
 				load: function (data, ioargs) {
 					console.log('MemberApi getCharacterStats io', ioargs);
 				}
-			}).then(function (data) {
-				console.log("MemberApi GET getCharacterStats data:", data);
-				
-				//sort attacker and player
-				if( data.character_list[0].character_id == event.attacker_character_id ) {
-					event['attacker_stats'] = data.character_list[0];
-					event['victim_stats'] = data.character_list[1];
-				} else {
-					event['attacker_stats'] = data.character_list[1];
-					event['victim_stats'] = data.character_list[0];
-				}
-				
-				self.onPlayerEvent(event);
 			});
+			return charGet;
+		},
+		
+		// Api Both Character Info
+		getVehicleStats: function (event) {
+			var self = this;
+			console.log("MemberApi getVehicleStats() event:", event);
+			
+			var url = 'http://census.soe.com/s:rch/get/ps2:v2/vehicle?'
+			+'vehicle_id=' + event.attacker_vehicle_id
+			+'&c:show=name.en,cost,image_path,vehicle_id';
+			var vehGet = Script.get({
+				url: url,
+				handleAs: 'json',
+				//content: content,
+				callbackParamName: "callback",
+				load: function (data, ioargs) {
+					console.log('MemberApi getCharacterStats io', ioargs);
+				}
+			});
+			return vehGet;
 		},
 		
 	});
