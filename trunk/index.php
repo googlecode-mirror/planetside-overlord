@@ -212,10 +212,10 @@ function addPlayerFeed(player_name) {
 		
 			dojo.byId('asdf');
 		
-			/*var main_header = new FeedHeader({
+			var main_header = new FeedHeader({
 			
 			}, "feed_main_header");
-			main_header.startup();*/
+			main_header.startup();/**/
 		
 			var main_debug = new FeedDebug({
 			
@@ -235,9 +235,9 @@ function addPlayerFeed(player_name) {
 		});
 	</script>
 	
-	<!-- Feed Main Body 
-	<div id="feed_main_header"></div>-->
-	<div id="feed_main_debug"></div>
+	<!-- Feed Main Body -->
+	<div id="feed_main_header"></div>
+	<!-- <div id="feed_main_debug"></div>-->
 	<div id="feed_main_body"></div>
 	<!--<div id="feed_main_footer"></div>-->
 

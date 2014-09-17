@@ -1,4 +1,6 @@
 define([
+	"dojo/_base/fx",
+	"dojo/fx",
 	"dojo/io/script", 
 	"dijit/_Widget", 
 	"dijit/_Templated", 
@@ -7,6 +9,8 @@ define([
 	"dojo/dom",
 	"dojo/text!./PlyrKillQue.html",
 ], function(
+	fx,
+	coreFx,
 	script, 
 	_Widget, 
 	_Templated, 

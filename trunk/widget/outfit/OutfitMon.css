@@ -8,8 +8,19 @@
    HTML ELEMENTS
 ********************************************/ 
 
+.header_body {
+    height: 100px;
+	background-color: rgb(1, 163, 224);
+	color: rgb(0, 0, 0);
+}
+
+.header_body > h1 {
+	margin: 0px 0px 0px 275px;
+	padding: 10px 10px 10px 10px;
+	font-size: 4em ;
+}
+
 #feed_body {
-	//background: #333333;
     height: 100%;
 	position: absolute;
     margin-bottom: 30px;
@@ -17,22 +28,28 @@
 
 .FeedDebug{
 	height: 100px;
-	background-color: #36D900;
+	/*background-color: #00758c;*/
+	background-color: rgb(1, 163, 224);
 }
 
 .interface_scifi{
 	margin: 0px;
 	padding: 0px;
-	background-color: #00141A;
+	/*background-color: #00141A;*/
+	background-color: rgb(0, 5, 8);
 	/*height: 100%;
 	width: 100%;
 	position: absolute;*/
 	font-family: 'Pathway Gothic One', sans-serif;
-	color: #00758C;
+	letter-spacing:1px;
+	text-transform: uppercase;/**/
+	/*color: #00758C;*/
+	color: rgb(1, 163, 224);
 }
 
 .OutfitMon {
-	background-color: #00141A;/**/
+	/*background-color: #00141A;*/
+	/*background-color: #00141A;*/
 	padding: 10pt;
 	/*display: inline-block;*/
 }
@@ -47,7 +64,7 @@
 	float: left;
 	margin: 0px 0px 0px 275px;
 	/*width: 800px;*/
-	background-color: #FF8000;
+	/*background-color: #FF8000;*/
 }
 .OutfitMon .outfit_mon_tag {
 	height: 50px;
@@ -57,7 +74,7 @@
 	/*font-family: 'Six Caps', sans-serif;*/
 	font-size: 20pt;
 	text-transform: uppercase;/**/
-	background-color: #FF8000;
+	/*background-color: #FF8000;*/
 }
 .OutfitMon .outfit_mon_body {
 }
@@ -69,7 +86,7 @@
 	width:265px;
 	margin-left: -100%;
 	/*min-height:600px;*/
-	background-color: #FFFF00;
+	/*background-color: #FFFF00;*/
 }
 .feed_main_div {
 	overflow: none;

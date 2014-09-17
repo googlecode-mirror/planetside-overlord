@@ -9,9 +9,11 @@
 ********************************************/ 
 
 .PlyrWinMin {
-	background-color: #888888;/**/
-	border-radius: 5px;
-	margin: 0px 5px 5px 0px;
+	/*background-color: #888888;*/
+	/*background-color: rgb(0, 39, 2);*/
+	border: rgb(0, 32, 69) solid 1px;
+	border-radius: 60px;
+	margin: 0px 15px 15px 0px;
 	padding: 5px;
 	height: 100px;
 	width: 250px;
@@ -24,7 +26,7 @@
 }
 
 .PlyrWinMin .p_header {
-	background-color: #AAAAAA;/**/
+	/*background-color: #AAAAAA;*/
 	padding: 0px 0px 0px 0px;
 	width: 75%;
 	height: 25px;
@@ -38,6 +40,7 @@
 	padding: 0px 5px;
 	float: left;
 	overflow:hidden;
+	text-transform: none;/**/
 	/*color: #3C3C3C;*/
 }
 
@@ -52,7 +55,7 @@
 }
 
 .PlyrWinMin .p_face {
-	background-color: #aaaaaa;
+	/*background-color: #aaaaaa;*/
 	width: 57.5px;
 	height: 52.5px;
 	padding: 0px 0px;
@@ -61,6 +64,16 @@
 	margin: 0px 0px 0px 0px;
 	text-align: center;
     vertical-align: top; /* here */
+}
+
+.PlyrWinMin .p_gallery {
+	/*background-color: #aaaaaa;*/
+	height: 50px;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: right top;
+	/*-webkit-filter: grayscale(1) opacity(0.5);*/
+	-webkit-filter: opacity(.7) sepia(1);
 }
 
 /*.PlyrWinMin .p_close {
@@ -77,7 +90,7 @@
 	Kill Que
 *******************/
 .PlyrWinMin .p_que {
-	background-color: #AAAAAA;/**/
+	background-color: #003754;
 	width: 75%;
 	height: 20px;
 	padding: 2.5px 0px 0px 0px;
@@ -91,19 +104,27 @@
 	margin: 0px 0px 0px 2.5px;
 	float: left;
 	text-align: center;
-	color: #FFFFFF;
+	/*color: #FFFFFF;*/
+	color: rgb(1, 163, 224);
 }
 
 .PlyrWinMin .p_que .p_que_k {
-	background-color: #00B300;
+	/*background-color: #00B300;*/
+	background-color: rgb(0, 160, 220);
+	color: rgb(0, 0, 0);
 }
 
 .PlyrWinMin .p_que .p_que_tk {
-	background-color: #FF9326;
+	/*background-color: #FF9326;*/
+	background-color: #FFFFFF;
+	color: rgb(0, 0, 0);
 }
 
 .PlyrWinMin .p_que .p_que_d {
-	background-color: #3C3C3C;
+	/*background-color: #3C3C3C;
+	color: rgb(0, 160, 220);*/
+	background-color: #000000;
+	color: rgb(0, 160, 220);
 }
 
 .PlyrWinMin .p_que .p_que_td {
@@ -113,6 +134,7 @@
 
 .PlyrWinMin .p_que .p_que_s {
 	background-color: #D52F2F;
+	color: rgb(253, 255, 255);
 }
 
 .PlyrKillQueDebug {
