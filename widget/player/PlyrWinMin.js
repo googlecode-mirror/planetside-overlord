@@ -213,11 +213,13 @@ define([
 		handleEvent: function (event) {
 			console.log("handleEvent img event:", event);
 			if( event.weapon_stats != null && event.weapon_stats.image_path != null ) {
+			
 				var src = "url('http://census.soe.com" + event.weapon_stats.image_path + "')";
-				//dojo.create('img', { src: src }, this.p_que.p_debug, "first");
-				dojo.style(this.p_que.p_debug, {
+				
+				dojo.style(this.p_gallery, {
 					"backgroundImage": src,
 				});
+				
 				console.log("handleEvent img:",src);
 			}
 		},

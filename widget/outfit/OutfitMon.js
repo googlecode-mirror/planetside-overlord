@@ -127,7 +127,7 @@ define([
 			var self = this;
 			console.log("OutfitMon onMembersComplete() data:", data);
 			
-			//dojo.style(this.p_body, {"display": "block"	});
+			this.tag.innerHTML = '[' + data.alias + '] : ' + data.name;
 			self.createMembers(data.members);
 		},
 		
