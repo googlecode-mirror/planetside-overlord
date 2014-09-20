@@ -37,6 +37,7 @@ define([
 		player_name: '',// lowercase
 		player_id: '',
 		player_stats: null,
+		longPoll: null,
 		
 		//  your custom code goes here
 		constructor: function (params) {
@@ -130,6 +131,8 @@ define([
 			if( self.useWebsock ) {
 				self.requestWebsock();
 			}
+			
+			//self.startLongPoll();
 			
 			// test stuff here
 			/*setTimeout(function () {
@@ -227,11 +230,41 @@ define([
 		closeThis: function () {
 			console.log("closeThis: ", this.player_stats.name.first);
 			
+			if( this.longPoll ) {
+				clearInterval(this.longPoll);
+			}
+			
 			if( this.useWebsock ) {
 				
 				this.connection.close();
 			}
 			this.destroy();
+		},
+		
+		startLongPoll: function () {
+			var self = this;
+			var url = 'http://census.soe.com/s:rch/get/ps2:v2/character/'
+				+'?character_id='+self.player_id
+				+'&c:resolve=currency';
+			console.log("startLongPoll: URL:", url);
+
+			this.longPoll = setInterval(function(){
+				console.log("PlyrWinMin GET POLL:");
+			
+				self.pollGet = Script.get({
+					url: url,
+					handleAs: 'json',
+					//content: content,
+					callbackParamName: "callback",
+					load: function (data, ioargs) {
+						//console.log('load Plyr io', ioargs);
+					}
+				}).then(function (data) {
+					console.log("PlyrWinMin GOT POLL:", data);
+					self.p_face.innerHTML = '$'+data.character_list[0].currency.quantity;
+				});
+			}, 30000);	
+				/**/
 		},
 		
 	});
