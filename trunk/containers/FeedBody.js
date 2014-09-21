@@ -79,7 +79,7 @@ return dojo.declare("ps2.containers.FeedBody", [ dijit._Widget, dijit._Templated
 		//this.addPlyr({ player_name: 'ratch'});
 		//this.addPlyr('Okamiba');
 		this.addOutfit('merc');
-		//this.addOutfit('baid');
+		this.addOutfit('baid');
 		//this.addOutfit('666');
 	},
 	
@@ -91,7 +91,7 @@ return dojo.declare("ps2.containers.FeedBody", [ dijit._Widget, dijit._Templated
 			outfit_tag_lower: tag_lower 
 		}, this.feed_body);
 		if( tag_lower == 'merc' ) {
-		/*setTimeout(function () {*///outfit.setPlyrWindow('ratch');/*}, 5000);*/
+			outfit.setPlyrWindow('ratch');
 		}
 	},
 	

@@ -1,4 +1,6 @@
 define([
+	"ps2/widget/player/PlyrKill",
+	
 	"dojo/_base/fx",
 	"dojo/fx",
 	"dojo/io/script", 
@@ -9,6 +11,8 @@ define([
 	"dojo/dom",
 	"dojo/text!./PlyrKillQue.html",
 ], function(
+	PlyrKill,
+	
 	fx,
 	coreFx,
 	script, 
@@ -88,52 +92,54 @@ define([
 			
 		},
 		
-		pushQue: function (txt) {
+		pushQue: function (txt, br, hs) {
 			var self = this;
 			console.log("PlyrKillQue pushQue: ", txt);
 			
-			var query = dojo.query("div", self.p_que);
+			var query = dojo.query("div.PlyrKill", self.p_que);
 			console.log("query:", query);
 			console.log("length:", query.length);
 			
-			if( query.length >= 8 ) { // remove last
+			if( query.length >= 6 ) { // remove last
 				console.log("destroy: ", query[query.length-1]);
 				domConstruct.destroy(query[query.length-1]);
 			}
 			
-			var replaceThese = ["p_que_k", "p_que_r", "p_que_d", "p_que_s", "p_que_td", "p_que_tk"];
-			switch(txt) {
+			//var replaceThese = ["p_que_k", "p_que_r", "p_que_d", "p_que_s", "p_que_td", "p_que_tk"];
+			var node = domConstruct.create("div", {innerHTML: txt}, self.p_que, "first");
+			var kill = new PlyrKill({ 
+				txt: txt,
+				br: br,
+				hs: hs,
+			}, node);
+			kill.startup();
+			/*switch(txt) {
 				case 'D':
 					// create Death txt
-					var node = domConstruct.create("div", {innerHTML: txt}, self.p_que, "first");
 					dojo.replaceClass(node, "p_que_d", replaceThese);
 				break;
 					
 				case 'SS':
 					// create Suicide txt
-					var node = domConstruct.create("div", {innerHTML: txt}, self.p_que, "first");
 					dojo.replaceClass(node, "p_que_s", replaceThese);
 				break;
 					
 				case 'K':
 					// create Kill txt
-					var node = domConstruct.create("div", {innerHTML: txt}, self.p_que, "first");
 					dojo.replaceClass(node, "p_que_k", replaceThese);
 				break;
 					
 				case 'TK':
 					// create Kill txt
-					var node = domConstruct.create("div", {innerHTML: txt}, self.p_que, "first");
 					dojo.replaceClass(node, "p_que_tk", replaceThese);
 				break;
 					
 				case 'TD':
 					// create Kill txt
-					var node = domConstruct.create("div", {innerHTML: txt}, self.p_que, "first");
 					dojo.replaceClass(node, "p_que_td", replaceThese);
 				break;
 				
-			}
+			}*/
 		},
 		
 		handleKillEvent: function (event) {
@@ -153,7 +159,7 @@ define([
 					// Player killed someone and NOT self
 					
 					if( event.attacker_stats.faction_id == event.victim_stats.faction_id ) {
-						this.handleKillTK();
+						this.handleKillTK(event);
 					} else {
 						this.handleKillBasic(event);
 					}
@@ -163,7 +169,7 @@ define([
 				
 				// Player victim of someone and NOT self	
 				if( event.attacker_stats.faction_id == event.victim_stats.faction_id ) {
-					this.handleDeathTK();
+					this.handleDeathTK(event);
 				} else {
 					this.handleDeathBasic(event)
 				}
@@ -174,23 +180,43 @@ define([
 		},
 		
 		handleDeathBasic: function (event) {
-			this.pushQue('D');
+			this.pushQue(
+				'D', 
+				event.attacker_stats.battle_rank.value,
+				(event.is_headshot == '1' ? 'HS' : '')
+			);
 		},
 		
 		handleKillBasic: function (event) {
-			this.pushQue('K');
+			this.pushQue(
+				'K', 
+				event.victim_stats.battle_rank.value,
+				(event.is_headshot == '1' ? 'HS' : '')
+			);
 		},
 		
 		handleKillTK: function (event) {
-			this.pushQue('TK');
+			this.pushQue(
+				'TK',
+				event.victim_stats.battle_rank.value,
+				(event.is_headshot == '1' ? 'HS' : '')
+			);
 		},
 		
 		handleDeathTK: function (event) {
-			this.pushQue('TD');
+			this.pushQue(
+				'TD',
+				event.attacker_stats.battle_rank.value,// error here
+				(event.is_headshot == '1' ? 'HS' : '')
+			);
 		},
 		
 		handleSuicide: function (event) {
-			this.pushQue('SS');
+			this.pushQue(
+				'SS',
+				event.attacker_stats.battle_rank.value,
+				(event.is_headshot == '1' ? 'HS' : '')
+			);
 		},
 		
 		handleLogin: function (event) {

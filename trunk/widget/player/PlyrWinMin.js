@@ -264,7 +264,7 @@ define([
 					self.p_face.innerHTML = '$'+data.character_list[0].currency.quantity;
 				});
 			}, 30000);	
-				/**/
+			
 		},
 		
 	});
