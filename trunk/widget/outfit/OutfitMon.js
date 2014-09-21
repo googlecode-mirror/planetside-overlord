@@ -133,7 +133,7 @@ define([
 		
 		onMembersConnected: function (data) {
 			var self = this;
-			console.log("OutfitMon onMembersConnected() data:", data);
+			//console.log("OutfitMon onMembersConnected()");
 			
 			//dojo.style(this.p_body, {"display": "block"	});
 			

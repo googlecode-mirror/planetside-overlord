@@ -34,15 +34,12 @@ define([
 		
 		//  your custom code goes here
 		constructor: function (params) {
-			console.log("PlyrKillQue constructor params:", params);
-			
+			//console.log("PlyrKillQue constructor params:", params);
 			
 		},
 		
 		startup: function () {
 			var self = this;
-			console.log("PlyrKillQue startup ");
-		
 			
 			dojo.ready(function(){
 				
@@ -51,27 +48,9 @@ define([
 			
 		},
 		
-		/*pushEvent: function (event) {
-			var self = this;
-			console.log("PlyrKillQue pushText: ", event);
-			
-			var query = dojo.query("div", self.p_que);
-			console.log("query:", query);
-			console.log("length:", query.length);
-			
-			if( query.length >= 8 ) { // remove last
-				console.log("destroy: ", query[query.length-1]);
-				domConstruct.destroy(query[query.length-1]);
-			}
-			// create Kill event
-			var node = domConstruct.create("div", {innerHTML: event}, self.p_que, "first");
-			dojo.replaceClass(node, "p_que_k", ["p_que_k", "p_que_r", "p_que_d"]);
-			
-		},*/
-		
 		pushEvent: function (event) {
 			var self = this;
-			console.log("PlyrKillQue pushEvent: ", event.event_name, " event:", event);
+			//console.log("PlyrKillQue pushEvent: ", event.event_name, " event:", event);
 			
 			switch(event.event_name) {
 				case 'Death':
@@ -92,16 +71,16 @@ define([
 			
 		},
 		
-		pushQue: function (txt, br, hs) {
+		pushQue: function (txt, br, hs, imgUrl) {
 			var self = this;
-			console.log("PlyrKillQue pushQue: ", txt);
+			//console.log("PlyrKillQue pushQue: ", txt);
 			
 			var query = dojo.query("div.PlyrKill", self.p_que);
-			console.log("query:", query);
-			console.log("length:", query.length);
+			//console.log("query:", query);
+			//console.log("length:", query.length);
 			
-			if( query.length >= 6 ) { // remove last
-				console.log("destroy: ", query[query.length-1]);
+			if( query.length >= 4 ) { // remove last
+				//console.log("destroy: ", query[query.length-1]);
 				domConstruct.destroy(query[query.length-1]);
 			}
 			
@@ -111,8 +90,10 @@ define([
 				txt: txt,
 				br: br,
 				hs: hs,
+				imgUrl: imgUrl,
 			}, node);
 			kill.startup();
+			
 			/*switch(txt) {
 				case 'D':
 					// create Death txt
@@ -143,9 +124,9 @@ define([
 		},
 		
 		handleKillEvent: function (event) {
-			console.log("PlyrKillQue handleKillEvent event :", event);
-			console.log("attacker :", event.attacker_character_id);
-			console.log("player_id:", this.player_id);
+			// console.log("PlyrKillQue handleKillEvent event :", event);
+			// console.log("attacker :", event.attacker_character_id);
+			// console.log("player_id:", this.player_id);
 			if( event.attacker_character_id == this.player_id ) {	
 				// Player killed someone or self
 				
@@ -183,7 +164,8 @@ define([
 			this.pushQue(
 				'D', 
 				event.attacker_stats.battle_rank.value,
-				(event.is_headshot == '1' ? 'HS' : '')
+				(event.is_headshot == '1' ? 'HS' : ''),
+				event.weapon_stats.image_path
 			);
 		},
 		
@@ -191,7 +173,8 @@ define([
 			this.pushQue(
 				'K', 
 				event.victim_stats.battle_rank.value,
-				(event.is_headshot == '1' ? 'HS' : '')
+				(event.is_headshot == '1' ? 'HS' : ''),
+				event.weapon_stats.image_path
 			);
 		},
 		
@@ -199,7 +182,8 @@ define([
 			this.pushQue(
 				'TK',
 				event.victim_stats.battle_rank.value,
-				(event.is_headshot == '1' ? 'HS' : '')
+				(event.is_headshot == '1' ? 'HS' : ''),
+				event.weapon_stats.image_path
 			);
 		},
 		
@@ -207,7 +191,8 @@ define([
 			this.pushQue(
 				'TD',
 				event.attacker_stats.battle_rank.value,// error here
-				(event.is_headshot == '1' ? 'HS' : '')
+				(event.is_headshot == '1' ? 'HS' : ''),
+				event.weapon_stats.image_path
 			);
 		},
 		
@@ -215,7 +200,8 @@ define([
 			this.pushQue(
 				'SS',
 				event.attacker_stats.battle_rank.value,
-				(event.is_headshot == '1' ? 'HS' : '')
+				(event.is_headshot == '1' ? 'HS' : ''),
+				null
 			);
 		},
 		
