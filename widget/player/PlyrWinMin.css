@@ -87,12 +87,12 @@
 }*/
 
 /******************
-	Kill Que
+	PlyrWinMin
 *******************/
 .PlyrWinMin .p_que {
 	background-color: #003754;
 	width: 75%;
-	height: 20px;
+	height: 40px;
 	padding: 2.5px 0px 0px 0px;
 	margin: 5px 0px 0px 0px;
 }
@@ -139,6 +139,63 @@
 
 .PlyrKillQueDebug {
 	/*background-color: #DDDDDD;*/
+}
+
+/******************
+	PlyrKill
+*******************/
+.PlyrKill {
+	width: 20px;
+	height: 60px;
+	padding: 0px 0px;
+	margin: 0px 0px 0px 2.5px;
+	float: left;
+	text-align: center;
+	/*color: #FFFFFF;*/
+	color: rgb(1, 163, 224);
+}
+.PlyrKillBody {
+}
+
+.PlyrKill .pk_k {
+	/*background-color: #00B300;*/
+	background-color: rgb(0, 160, 220);
+	color: rgb(0, 0, 0);
+}
+
+.PlyrKill .pk_tk {
+	/*background-color: #FF9326;*/
+	background-color: #FFFFFF;
+	color: rgb(0, 0, 0);
+}
+
+.PlyrKill .pk_d {
+	/*background-color: #3C3C3C;
+	color: rgb(0, 160, 220);*/
+	background-color: #000000;
+	color: rgb(0, 160, 220);
+}
+
+.PlyrKill .pk_td {
+	background-color: #3C3C3C;
+	color: #FDFD00;
+}
+
+.PlyrKill .pk_s {
+	background-color: #D52F2F;
+	color: rgb(253, 255, 255);
+}
+.PlyrKillDebug {
+	width: 20px;
+	height: 20px;
+	padding: 0px 0px;
+	margin: 0px 0px 0px 2.5px;
+	text-align: center;
+	/*color: #FFFFFF;*/
+	color: rgb(1, 163, 224);
+}
+.PlyrKill .pk_br {
+	font-size: .8em;
 }
 
 /******************
