@@ -80,7 +80,7 @@ return dojo.declare("ps2.containers.FeedBody", [ dijit._Widget, dijit._Templated
 		//this.addPlyr('Okamiba');
 		this.addOutfit('merc');
 		this.addOutfit('baid');
-		//this.addOutfit('666');
+		this.addOutfit('666');
 	},
 	
 	addOutfit: function (tag_lower) {

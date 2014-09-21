@@ -41,7 +41,7 @@ define([
 		
 		//  your custom code goes here
 		constructor: function (params) {
-			console.log("PlyrWinMin constructor params:", params);
+			//console.log("PlyrWinMin constructor params:", params);
 			if( (!params.player_id/* == null || params.player_id == ''*/)
 				&& (!params.player_name/* == null || params.player_name == ''*/)	){
 				console.error("PlyWinMin needs a player id or name!");
@@ -58,8 +58,6 @@ define([
 		
 		startup: function () {
 			var self = this;
-			console.log("PlyrWinMin startup ");
-		
 			
 			dojo.ready(function(){				
 				
@@ -97,7 +95,7 @@ define([
 					//console.log('load Plyr io', ioargs);
 				}
 			}).then(function (data) {
-				console.log("PlyrWinMin GET data:", data);
+				//console.log("PlyrWinMin GET data:", data);
 				self.setStats(data.character_list[0]);
 				self.finishedLoad();
 			});
@@ -134,31 +132,6 @@ define([
 			
 			//self.startLongPoll();
 			
-			// test stuff here
-			/*setTimeout(function () {
-				self.p_que.pushEvent('77');
-					setTimeout(function () {
-						self.p_que.pushEvent('88');
-							setTimeout(function () {
-								self.p_que.pushEvent('87');
-									setTimeout(function () {
-										self.p_que.pushEvent('11');
-											setTimeout(function () {
-												self.p_que.pushEvent('100');
-												setTimeout(function () {
-													self.p_que.pushEvent('99');
-													setTimeout(function () {
-														self.p_que.pushEvent('98');
-														setTimeout(function () {
-															self.p_que.pushEvent('97');
-														}, 1000);
-													}, 1000);
-												}, 1000);
-											}, 1000);
-									}, 1000);
-							}, 1000);
-					}, 1000);
-			}, 1000);*/
 		},
 		
 		finishedUpdate: function () {
@@ -175,7 +148,7 @@ define([
 			this.connection.onopen = function () {
 				//console.log("this. connection opened");
 				var kill_events = '{"service":"event","action":"subscribe","characters":["' + self.player_id + '"],"eventNames":["Death","PlayerLogin","PlayerLogout"]}';
-				console.log("kill_events:", kill_events);
+				//console.log("kill_events:", kill_events);
 				self.connection.send(kill_events);
 				//self.updateStatus();
 			};
@@ -200,7 +173,7 @@ define([
 			
 			// check connection status
 			this.updater = setInterval( function(){
-				console.log("TODO: check connection");
+				//console.log("TODO: check connection");
 				//self.updateStatus();
 				//self.updateTotalMembers();
 			},20000);
@@ -214,7 +187,7 @@ define([
 		},
 		
 		handleEvent: function (event) {
-			console.log("handleEvent img event:", event);
+			//console.log("handleEvent img event:", event);
 			if( event.weapon_stats != null && event.weapon_stats.image_path != null ) {
 			
 				var src = "url('http://census.soe.com" + event.weapon_stats.image_path + "')";
@@ -223,12 +196,12 @@ define([
 					"backgroundImage": src,
 				});
 				
-				console.log("handleEvent img:",src);
+				//console.log("handleEvent img:",src);
 			}
 		},
 		
 		closeThis: function () {
-			console.log("closeThis: ", this.player_stats.name.first);
+			//console.log("closeThis: ", this.player_stats.name.first);
 			
 			if( this.longPoll ) {
 				clearInterval(this.longPoll);
@@ -246,10 +219,10 @@ define([
 			var url = 'http://census.soe.com/s:rch/get/ps2:v2/character/'
 				+'?character_id='+self.player_id
 				+'&c:resolve=currency';
-			console.log("startLongPoll: URL:", url);
+			//console.log("startLongPoll: URL:", url);
 
 			this.longPoll = setInterval(function(){
-				console.log("PlyrWinMin GET POLL:");
+				//console.log("PlyrWinMin GET POLL:");
 			
 				self.pollGet = Script.get({
 					url: url,
@@ -260,7 +233,7 @@ define([
 						//console.log('load Plyr io', ioargs);
 					}
 				}).then(function (data) {
-					console.log("PlyrWinMin GOT POLL:", data);
+					//console.log("PlyrWinMin GOT POLL:", data);
 					self.p_face.innerHTML = '$'+data.character_list[0].currency.quantity;
 				});
 			}, 30000);	

@@ -21,7 +21,7 @@ define([
 		//  your custom code goes here
 		constructor: function (params) {
 			var self = this;
-			console.log("MemberApi constructor params:", params);
+			//console.log("MemberApi constructor params:", params);
 			
 			if(!params.outfit_tag_lower && !params.outfit_id){
 				console.error("MemberApi needs a outfit id or name!");
@@ -67,10 +67,10 @@ define([
 				//content: content,
 				callbackParamName: "callback",
 				load: function (data, ioargs) {
-					console.log('MemberApi load Plyr io', ioargs);
+					//console.log('MemberApi load Plyr io', ioargs);
 				}
 			}).then(function (data) {
-				console.log("MemberApi GET data:", data);
+				//console.log("MemberApi GET data:", data);
 				self.data = data.outfit_list[0];
 				//self.setStats(data.character_list[0]);
 				self.onComplete(self.data);// Callback
@@ -111,7 +111,8 @@ define([
 					"eventNames":[
 						"Death",
 						"PlayerLogin",
-						"PlayerLogout"
+						"PlayerLogout",
+						"VehicleDestroy"
 						]
 				});
 				//console.log("kill_events:", kill_events);
@@ -130,7 +131,7 @@ define([
 			this.connection.onmessage = function (e) {
 				var msg = jQuery.parseJSON( e.data );
 				if( msg.type != 'serviceStateChanged' ) {
-					console.log("msg:", msg);
+					//console.log("msg:", msg);
 				}
 				if( msg.service == 'event' && msg.type == 'serviceMessage' ) {
 					//console.log("event:", msg);
@@ -140,7 +141,7 @@ define([
 			
 			// check connection status
 			this.updater = setInterval( function(){
-				console.log("TODO: MemberApi check connection");
+				//console.log("TODO: MemberApi check connection");
 				//self.updateStatus();
 				//self.updateTotalMembers();
 			},20000);
@@ -150,13 +151,14 @@ define([
 		// This calls onPlayerEvent callback with additional info:
 		//	 weapon stats on 'death' event
 		//   character name for both players
+		//   vehicle_stats 
 		playerEventPacked: function (getResults, event) {
 			var self = this;
 			
 			// set character stats
 			if( getResults[0][0] ==  true ) {
 				var charData = getResults[0][1];
-				console.log("MemberApi GET charData:", charData);
+				//console.log("MemberApi GET charData:", charData);
 				//sort attacker and player
 				if( charData.character_list[0].character_id == event.attacker_character_id ) {
 					event['attacker_stats'] = charData.character_list[0];
@@ -170,14 +172,14 @@ define([
 			// set wep stats
 			if( getResults[1][0] ==  true ) {
 				var wepData = getResults[1][1];
-				console.log("MemberApi GET wepData:", wepData);
+				//console.log("MemberApi GET wepData:", wepData);
 				event['weapon_stats'] = wepData.item_list[0];	
 			}
 			
 			// set vehicle stats
 			if( event.attacker_vehicle_id != '0' && getResults[2][0] ==  true ) {
 				var vehData = getResults[2][1];
-				console.log("MemberApi GET vehData:", vehData);
+				//console.log("MemberApi GET vehData:", vehData);
 				event['vehicle_stats'] = vehData.vehicle_list[0];	
 			}
 
@@ -205,9 +207,14 @@ define([
 						
 					var list = new DeferredList(apiCalls);
 					list.then(function(eventPacked) {
-						console.log("eventPacked:", eventPacked);
+						//console.log("eventPacked:", eventPacked);
 						self.playerEventPacked(eventPacked, event);
 					});
+				} else if( event.event_name == 'VehicleDestroy' ) {
+					// Get info via requests
+					//this.onPlayerEvent(event);
+					console.log("VehicleDestroy event:", event);
+			
 				} else {
 					// Get info via requests
 					this.onPlayerEvent(event);
@@ -220,7 +227,7 @@ define([
 		// Api Weapon Info
 		getWeaponStats: function (event) {
 			var self = this;
-			console.log("MemberApi getWeaponStats() event:", event);
+			//console.log("MemberApi getWeaponStats() event:", event);
 			
 			var url = 'http://census.soe.com/s:rch/get/ps2:v2/item/'
 				+'?item_id='+event.attacker_weapon_id
@@ -240,7 +247,7 @@ define([
 		// Api Both Character Info
 		getCharacterStats: function (event) {
 			var self = this;
-			console.log("MemberApi getCharacterStats() event:", event);
+			//console.log("MemberApi getCharacterStats() event:", event);
 			
 			var url = 'http://census.soe.com/s:rch/get/ps2:v2/character/'
 			+'?character_id='+ event.attacker_character_id + ','
@@ -252,7 +259,7 @@ define([
 				//content: content,
 				callbackParamName: "callback",
 				load: function (data, ioargs) {
-					console.log('MemberApi getCharacterStats io', ioargs);
+					//console.log('MemberApi getCharacterStats io', ioargs);
 				}
 			});
 			return charGet;
@@ -261,7 +268,7 @@ define([
 		// Api Both Character Info
 		getVehicleStats: function (event) {
 			var self = this;
-			console.log("MemberApi getVehicleStats() event:", event);
+			//console.log("MemberApi getVehicleStats() event:", event);
 			
 			var url = 'http://census.soe.com/s:rch/get/ps2:v2/vehicle?'
 			+'vehicle_id=' + event.attacker_vehicle_id
@@ -272,7 +279,7 @@ define([
 				//content: content,
 				callbackParamName: "callback",
 				load: function (data, ioargs) {
-					console.log('MemberApi getCharacterStats io', ioargs);
+					//console.log('MemberApi getCharacterStats io', ioargs);
 				}
 			});
 			return vehGet;

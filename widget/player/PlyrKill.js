@@ -15,23 +15,23 @@ define([
 		txt: 'TX',
 		br: 'XX',
 		hs: '0',
+		imgUrl: null,
 		
 		
 		//  your custom code goes here
 		constructor: function (params) {
-			console.log("PlyrKill constructor params:", params);
+			//console.log("PlyrKill constructor params:", params);
 			
 			
 		},
 		
 		startup: function () {
-			var self = this;
-			console.log("PlyrKill startup ");
-		
+			var self = this;		
 			
 			dojo.ready(function(){
 				self.setParams();
 				self.setClass();
+				self.setThumbnail();
 				
 			});//end dojo.ready
 			
@@ -73,6 +73,21 @@ define([
 				break;
 				
 			}
+		},
+		
+		setThumbnail: function () {
+			console.log('setThumbnail: imgUrl', this.imgUrl);
+			if( this.imgUrl != null ) {
+			
+				var src = "url('http://census.soe.com" + this.imgUrl + "')";
+				
+				console.log('setThumbnail: img',src);
+				dojo.style(this.pk_wep, {
+					"backgroundImage": src,
+				});
+				
+			}
+			
 		},
 		
 	});
