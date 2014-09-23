@@ -17,6 +17,7 @@ define([
 		outfit_id: '',
 		outfit_stats: null,
 		data: null,
+		onlineCount: 0,
 		
 		//  your custom code goes here
 		constructor: function (params) {
@@ -30,6 +31,7 @@ define([
 			// Set defaults
 			this.outfit_id = (params.outfit_id ? params.outfit_id.toLowerCase() : '');
 			this.outfit_tag_lower = (params.outfit_tag_lower ? params.outfit_tag_lower.toLowerCase() : '');
+			this.onlineCount = 0;
 			
 			// Set Callbacks
 			this.onPlayerEvent = params.onPlayerEvent;
@@ -88,6 +90,9 @@ define([
 			
 			for(var i = 0; i < count; ++i) {
 				arr.push( self.data.members[i].character_id );
+				if( self.data.members[i].online_status != '0' ) {
+					this.onlineCount++;
+				}
 			}
 			
 			//console.log("arr: ", arr);

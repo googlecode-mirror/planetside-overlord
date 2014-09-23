@@ -17,6 +17,11 @@ body {
 	color: #A0080D;
 }
 
+#debug_left_pane {
+	background-color: #111111;
+    height: 100px;
+}
+
 #feed_main_header {
 	background-color: #111111;
     height: 100px;

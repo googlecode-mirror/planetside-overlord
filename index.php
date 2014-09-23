@@ -158,7 +158,7 @@ function addPlayerFeed(player_name) {
 
 </head>
 
-<body class='interface_scifi'>    
+<body class='interface_scifi' id="main_body">    
 	<!-- configure Dojo -->
     <script>
         // Instead of using data-dojo-config, we're creating a dojoConfig
@@ -234,6 +234,9 @@ function addPlayerFeed(player_name) {
 			
 		});
 	</script>
+	
+	<!-- Debug Left -->
+	<div id="debug_left_pane"></div>
 	
 	<!-- Feed Main Body -->
 	<div id="feed_main_header"></div>

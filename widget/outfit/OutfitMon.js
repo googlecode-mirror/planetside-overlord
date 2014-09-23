@@ -41,6 +41,10 @@ define([
 		PlyrWinMinContainer: {},
 		PlyrWindow: null,// left pane view
 		
+		// Callbacks
+		onKillEvent: null,
+		onDeathEvent: null,
+		
 		//  your custom code goes here
 		constructor: function (params) {
 			console.log("OutfitMon constructor params:", params);
@@ -51,6 +55,15 @@ define([
 			// Set defaults
 			this.outfit_id = (params.outfit_id ? params.outfit_id.toLowerCase() : '');
 			this.outfit_tag_lower = (params.outfit_tag_lower ? params.outfit_tag_lower.toLowerCase() : '');
+			
+			this.onKillEvent = (typeof(params.onKillEvent) == "function" ? params.onKillEvent : null);
+			this.onDeathEvent = (typeof(params.onDeathEvent) == "function" ? params.onDeathEvent : null);
+			
+			if( typeof(params.onComplete) == "function" ) {
+				this.onComplete = params.onComplete;
+			} else {
+				this.onComplete = null;
+			}
 			
 			
 		},
@@ -129,7 +142,11 @@ define([
 			
 			this.tag.innerHTML = '[' + data.alias + '] : ' + data.name;
 			self.createMembers(data.members);
+			if( self.onComplete != null ) {
+				self.onComplete(data);
+			}
 		},
+		
 		
 		onMembersConnected: function (data) {
 			var self = this;
@@ -161,10 +178,12 @@ define([
 			var attacker = event.attacker_character_id;
 			var victim = event.character_id;
 			
-			if( self.PlyrWinMinContainer[attacker] ) {
+			if( self.PlyrWinMinContainer[attacker] ) {// member kill :)
 				self.PlyrWinMinContainer[attacker].playerEvent(event);
-			} else if( self.PlyrWinMinContainer[victim] ) {
+				if( self.onKillEvent != null ) { self.onKillEvent(event); }// param callback
+			} else if( self.PlyrWinMinContainer[victim] ) {// member death :(
 				self.PlyrWinMinContainer[victim].playerEvent(event);
+				if( self.onKillEvent != null ) { self.onDeathEvent(event); }// param callback
 			} else {
 				console.error("Error handling player event, not in PlyrWinMinContainer event: ", event);
 			}
