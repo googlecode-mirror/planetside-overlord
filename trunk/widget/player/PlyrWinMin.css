@@ -72,8 +72,8 @@
 	background-repeat: no-repeat;
 	background-size: contain;
 	background-position: right top;
-	/*-webkit-filter: grayscale(1) opacity(0.5);*/
-	-webkit-filter: opacity(.7) sepia(1);
+	/*-webkit-filter: grayscale(1) opacity(0.5);
+	-webkit-filter: opacity(.7) sepia(1);*/
 }
 
 /*.PlyrWinMin .p_close {
@@ -180,11 +180,11 @@
 	/*background-color: #3C3C3C;
 	color: rgb(0, 160, 220);*/
 	
-	filter: brightness(0) invert(4);
+	/*filter: brightness(0) invert(4);
 	-webkit-filter: invert(1);
 	-moz-filter: invert(1);
 	-o-filter: invert(1);
-	-ms-filter: invert(1);
+	-ms-filter: invert(1);*/
 }
 
 .PlyrKill .pk_td {
@@ -204,11 +204,11 @@
 	background-size: contain;
 	background-position: right top;
 	
-	-webkit-filter: brightness(0%);
+	/*-webkit-filter: brightness(0%);
 	-moz-filter: brightness(0%);
 	-o-filter: brightness(0%);
 	-ms-filter: brightness(0%);
-	filter: brightness(0%);
+	filter: brightness(0%);*/
 }
 .PlyrKillDebug {
 	width: 20px;
