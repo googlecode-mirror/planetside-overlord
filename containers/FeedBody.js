@@ -78,6 +78,7 @@ return dojo.declare("ps2.containers.FeedBody", [ dijit._Widget, dijit._Templated
 	
 		//this.addPlyr({ player_name: 'ratch'});
 		//this.addPlyr('Okamiba');
+		//this.addOutfit('m3rx');
 		this.addOutfit('merc');
 		//this.addOutfit('baid');
 		//this.addOutfit('666');
