@@ -1,0 +1,1 @@
+A stat tracker for the MMO FPS game Planetside 2. This web tool allows players to watch kill feeds and real-time stats for their outfits and individual players.
